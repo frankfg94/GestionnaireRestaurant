@@ -10,7 +10,7 @@ class Salle
       int coord_x;
       int coord_y;
       int nb_chaise;
-      int nb_table;
+      int nb_table;	
     public:
         Salle();
         void aff_info_salle();
