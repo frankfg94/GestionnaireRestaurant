@@ -2,7 +2,7 @@
 
 Fonctionnalités:
 
-- Taille personnalisée de restaurants
+- Taille personnalisée du restaurant
 - Taille personnalisée de chaque salle
 - Nombre d'étages illimité
 - Prédiction du placement de chaque table et de chaque chaise, pour toutes les salles
