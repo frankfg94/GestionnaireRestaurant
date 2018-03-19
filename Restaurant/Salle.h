@@ -15,6 +15,7 @@ class Salle
         Salle();
         void aff_info_salle();
         void modif_salle();
+		void modif_salle_fast(int longueurX, int largeurY, int nbChaises, int nbTables);
         void aff_salle();
 };
 

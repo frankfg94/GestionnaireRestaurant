@@ -32,6 +32,14 @@ void Salle::modif_salle()
     cin >> nb_table;
 }
 
+void Salle::modif_salle_fast(int longueurX, int largeurY, int nbChaises, int nbTables)
+{
+	coord_x = longueurX;
+	coord_y = largeurY;
+	nb_chaise = nbChaises;
+	nb_table = nbChaises;
+}
+
 void Salle::aff_salle()
 {
     int y = coord_y;
@@ -43,7 +51,7 @@ void Salle::aff_salle()
         x--;
     }
     cout << "|" << endl;
-    x = coord_x;
+    x = coord_x;	
     while (y > 0)
     {
         cout << "|";

@@ -38,7 +38,7 @@ int main()
 	*/
 	int x = 1;
 	int exit = 2;
-	static bool isGenerated = false;
+	static bool isGenerated = false; // verifie si le restaurant a utilisé la fonction Creer()
 	int sup = 0;
 	string menu = "\n 1.Generer\n 2.Quitter\n";
 	Restaurant resto;
@@ -59,6 +59,7 @@ int main()
 			menu = "\n 1.Re-Generer\n 2.Afficher\n 3.Quitter\n";
 			isGenerated = true;
 			exit = 3;
+			cout << "Placer les tables ?\n";
 			break;
 		case 2:
 			if(!isGenerated)
