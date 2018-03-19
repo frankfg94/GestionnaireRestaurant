@@ -30,6 +30,7 @@ void Restaurant::Creer()
 
 		cout << "	b ) Entrer le numero de reference du groupe : "; cin >> g.nb_ref ;
 		cout << "	c ) Entrer le nombre de personnes dans le groupe : "; cin >> g.nb_pers;
+		nbPersonnesTotal += g.nb_pers;
 		cout << endl;
 	}
 	cout << "\\   Etages   \\" << endl;
@@ -37,6 +38,11 @@ void Restaurant::Creer()
 	{
 		cout << "	Combien y a t-il de places a l'etage " << i << ": ";
 		cin >> nbPlacesEtage[i];
+		nbPlacesTotal += nbPlacesEtage[i];
+	}
+	if (nbPlacesTotal < nbPersonnesTotal)
+	{
+		cout << "\n(!) Le nombre d'invites est superieur au nombre de places disponible\n" << nbPersonnesTotal<<" invites pour "<< nbPlacesTotal <<" places disponibles\n\n";
 	}
 }
 

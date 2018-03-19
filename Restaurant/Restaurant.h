@@ -6,7 +6,9 @@ private:
 	double largeurResto;
 	double longueurResto;
 	int nbEtages;
+	int nbPersonnesTotal;
 	int* nbPlacesEtage; // tableau indiquant le nombre de places pour chaque etage
+	int nbPlacesTotal;
 	int nbGroupes;
 	Groupe* listeGroupes;// contient l'ensemble des groupes
 public:

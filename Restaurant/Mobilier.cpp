@@ -1,17 +1,17 @@
 #include "Mobilier.h"
 #include <iostream>
 
-Mobilier::Mobilier(int _etage, int _NbChaises = 0, int _NbTables = 0)
+Mobilier::Mobilier(int _etage, int _nbChaises = 0, int _nbTables = 0)
 {
 	etage = _etage;
-	nbChaises = _NbChaises;
-	nbTables = _NbTables;
+	nbChaises = _nbChaises;
+	nbTables = _nbTables;
 }
 
-void Mobilier::ModifierMobilier( int _NbChaises = 0, int _NbTables = 0)
+void Mobilier::ModifierMobilier( int _nbChaises = 0, int _nbTables = 0)
 {
-	nbTables = _NbTables;
-	nbChaises = _NbChaises;
+	nbTables = _nbTables;
+	nbChaises = _nbChaises;
 }
 
 void Mobilier::AfficherMobilierTotal()
