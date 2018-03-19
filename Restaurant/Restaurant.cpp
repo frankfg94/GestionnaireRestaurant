@@ -3,14 +3,26 @@
 #include <iostream>
 using namespace std;
 
+void SecuriserInt(double inputVariable, string messageQuestion)
+{
+	while (cin.fail())
+	{
+		cin.clear();
+		cin.ignore(256, '\n');
+		cout << "\n>> Erreur : Merci d'entrer un entier\n\n";
+		cout << messageQuestion;
+		cin >> inputVariable;
+	}
+}
+
 void Restaurant::Creer()
 {
 	int* data = new int[20];
 	cout << "---------------MENU DE GENERATION DU RESTAURANT-----------------" << endl << endl;
-	cout << " 1 / Quelle est la largeur du restaurant: ";cin >> largeurResto;
-	cout << " 2 / Quelle est la longueur du restaurant: ";cin >> longueurResto;
-	cout << " 3 / Combien y a t-il de groupes: ";cin >> nbGroupes;
-	cout << " 4 / Combien y a t-il d'etages: ";cin >> nbEtages;
+	cout << " 1 / Quelle est la largeur du restaurant: "; cin >> largeurResto; SecuriserInt(largeurResto, " 1 / Quelle est la largeur du restaurant : ");
+	cout << " 2 / Quelle est la longueur du restaurant: ";cin >> longueurResto; SecuriserInt(longueurResto, " 2 / Quelle est la longueur du restaurant : ");
+	cout << " 3 / Combien y a t-il de groupes: ";cin >> nbGroupes; SecuriserInt(nbGroupes, " 3 / Combien y a t-il de groupes :");
+	cout << " 4 / Combien y a t-il d'etages : ";cin >> nbEtages; SecuriserInt(nbEtages, " 4 / Combien y a t-il d'etages :");
 	cout << endl;
 
 	// Initialisation dynamique
@@ -21,12 +33,11 @@ void Restaurant::Creer()
 	{
 		Groupe g;
 		g = listeGroupes[i];
-		cout << "\\   Groupe " << i+1 << "   \\" << endl;
-		cout << "	a ) Entrer le nom du groupe : "; 
+			cout << "\\   Groupe " << i + 1 << "   \\" << endl;
+			cout << "	a ) Entrer le nom du groupe : ";
 
-		cin.ignore();
-		getline(cin, g.nom); // cin.ignore() est necessaire pour ne pas sauter de lignes
-
+			cin.ignore();
+			getline(cin, g.nom); // cin.ignore() est necessaire pour ne pas sauter de lignes
 
 		cout << "	b ) Entrer le numero de reference du groupe : "; cin >> g.nb_ref ;
 		cout << "	c ) Entrer le nombre de personnes dans le groupe : "; cin >> g.nb_pers;
@@ -62,5 +73,9 @@ Restaurant::Restaurant(double _largeur, double _longueur, int _etages, int*	_pla
 		for(int i = 0; i < nbEtages; i++)
 		{
 			cout << "Etage "<< i<<" : " << nbPlacesEtage[i] << " places " << endl;
+		}
+		for (int i = 0; i < nbGroupes; i++)
+		{
+			cout << "Groupe " << listeGroupes[i].nom << " : " << listeGroupes[i].nb_pers << " personnes ("<< listeGroupes[i].nb_ref <<")" << endl;
 		}
 }

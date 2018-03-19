@@ -7,6 +7,19 @@
 #include <stdlib.h> // permet de supprimer l'affichage de la console
 using namespace std;
 
+void SecuriserInt2(double inputVariable, string messageQuestion)
+{
+	while (cin.fail())
+	{
+		cin.clear();
+		cin.ignore(256, '\n');
+		cout << "\n>> Erreur : Merci d'entrer un entier\n\n";
+		cout << messageQuestion;
+		cin >> inputVariable;
+	}
+}
+
+
 int main()
 {
 	/* Main Yoann 
@@ -36,9 +49,11 @@ int main()
 		cout << "---------------------------------------------------\n";
 		cout << "Choissez une option: ";
 		cin >> x;
+		SecuriserInt2(x, "Merci de choisir une des options proposees: ");
 		cout << "\n\n\n";
 		switch (x)
 		{
+		
 		case 1:
 			resto.Creer();
 			menu = "\n 1.Re-Generer\n 2.Afficher\n 3.Quitter\n";
