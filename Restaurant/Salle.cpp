@@ -4,6 +4,7 @@
 
 using namespace std;
 
+
 Salle::Salle()
 {
     coord_x = 0;
@@ -40,35 +41,37 @@ void Salle::modif_salle_fast(int longueurX, int largeurY, int nbChaises, int nbT
 	nb_table = nbChaises;
 }
 
-void Salle::aff_salle()
+void Salle::test_salle()
 {
-    int y = coord_y;
-    int x = coord_x;
-    cout << "|";
-    while (x > 0)
-    {
-        cout << "-";
-        x--;
-    }
-    cout << "|" << endl;
-    x = coord_x;	
-    while (y > 0)
-    {
-        cout << "|";
-        while (x > 0)
-        {
-            cout << " ";
-            x = x--;
-        }
-        cout << "|" << endl;
-        x = coord_x;
-        y = y--;
-    }
-    cout << "|";
-    while (x > 0)
-    {
-        cout << "-";
-        x = x--;
-    }
-    cout << "|" << endl;
+	cout << "1" << endl;
+	tab = new char*[coord_y];
+}
+
+
+
+char** Salle::Generer(int sizeX, int sizeY)
+{
+	tab = new char*[sizeX];
+	for (int i = 0; i < sizeX; ++i)
+		tab[i] = new char[sizeY];
+	for (int x = 0; x <sizeX; x++)
+	{
+		for (int y = 0; y < sizeY; y++)
+		{
+			tab[x][y] = '*';
+		}
+	}
+	return tab;
+}
+
+void Salle::Afficher(int zoneX, int zoneY)
+{
+	for (int x = 0; x < zoneX; x++)
+	{
+		for (int y = 0; y < zoneY; y++)
+		{
+			cout << tab[x][y];
+		}
+		cout << "\n";
+	}
 }

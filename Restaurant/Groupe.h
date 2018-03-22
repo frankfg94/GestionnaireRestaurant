@@ -14,6 +14,7 @@ class Groupe
 		int nb_pers;
 		int nb_ref;
 		std::string nom;
+
     private:
 		// mettre toutes les variables ici Denis
 };

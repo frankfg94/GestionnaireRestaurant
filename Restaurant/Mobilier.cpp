@@ -40,3 +40,15 @@ int Mobilier::GetNumEtage()
 {
 	return etage;
 }
+
+int Mobilier::AjouterTables(int _NbChaises)
+{
+	nbChaises = nbChaises + _NbChaises;
+	return nbTables;
+}
+
+int Mobilier::AjouterChaises(int _NbTables)
+{
+	nbChaises = nbChaises + _NbTables;
+	return nbChaises;
+}

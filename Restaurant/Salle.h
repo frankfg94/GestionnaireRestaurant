@@ -11,12 +11,15 @@ class Salle
       int coord_y;
       int nb_chaise;
       int nb_table;	
+	  char** tab;
     public:
         Salle();
         void aff_info_salle();
         void modif_salle();
 		void modif_salle_fast(int longueurX, int largeurY, int nbChaises, int nbTables);
-        void aff_salle();
+		void test_salle();
+		char** Generer(int x, int y);
+		void Afficher(int zoneX, int zoneY);
 };
 
 #endif // SALLE_H_INCLUDED

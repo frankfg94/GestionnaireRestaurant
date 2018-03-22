@@ -19,6 +19,11 @@ void SecuriserInt2(double inputVariable, string messageQuestion)
 	}
 }
 
+ostream &operator<<(ostream &os, const Groupe &g)
+{
+	return os << "(nom:" << g.nom << "; nb:" << g.nb_pers << "; ref:" << g.nb_ref << ")\n";
+
+}
 
 int main()
 {
@@ -30,18 +35,19 @@ int main()
 	sal.aff_salle();
 	*/
 	
-	/* Main Denis
 	Groupe A(0, "Dupont", 212);
-	cout << "Nom de reservation : " << A.nom << endl;
-	cout << "Nombre de personne : " << A.nb_pers_groupe() << endl;
-	cout << "Numero de reference de reservation : " << A.nb_ref_groupe() << endl;
-	*/
+	cout << A << "OK";
+
 	int x = 1;
 	int exit = 2;
 	static bool isGenerated = false; // verifie si le restaurant a utilisé la fonction Creer()
-	int sup = 0;
+	int sup = 0; 
 	string menu = "\n 1.Generer\n 2.Quitter\n";
 	Restaurant resto;
+	Salle s;
+	s.Generer(10, 10);
+	s.Afficher(10, 10);
+	cout << "stop" << endl;
 	do 
 	{
 		cout << "\n\n-----------GESTIONNAIRE DE RESTAURANT--------------\n";

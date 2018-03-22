@@ -29,6 +29,14 @@ void Restaurant::Creer()
 	nbPlacesEtage = new int[nbEtages];
 	listeGroupes = new Groupe[nbGroupes];
 
+	cout << "\\   Etages   \\" << endl;
+	for (int i = 0; i < nbEtages; i++)
+	{
+		cout << "	Combien y a t-il de places a l'etage " << i << ": ";
+		cin >> nbPlacesEtage[i];
+		nbPlacesTotal += nbPlacesEtage[i];
+	}
+
 	for (int i = 0; i < nbGroupes; i++)
 	{
 		Groupe g;
@@ -41,16 +49,16 @@ void Restaurant::Creer()
 
 		cout << "	b ) Entrer le numero de reference du groupe : "; cin >> g.nb_ref ;
 		cout << "	c ) Entrer le nombre de personnes dans le groupe : "; cin >> g.nb_pers;
+		if(g.nb_pers + nbPersonnesTotal> nbPlacesTotal)
+		{
+			cout << "Impossible d'ajouter plus de personnes :" << g.nb_pers + nbPersonnesTotal << " invites pour " << nbPlacesTotal << " places disponibles\n\n";
+			
+			cout << "Re-entrer le numero de reference du groupe : "; cin >> g.nb_pers;
+		}
 		nbPersonnesTotal += g.nb_pers;
 		cout << endl;
 	}
-	cout << "\\   Etages   \\" << endl;
-	for (int i = 0; i < nbEtages; i++)
-	{
-		cout << "	Combien y a t-il de places a l'etage " << i << ": ";
-		cin >> nbPlacesEtage[i];
-		nbPlacesTotal += nbPlacesEtage[i];
-	}
+
 	if (nbPlacesTotal < nbPersonnesTotal)
 	{
 		cout << "\n(!) Le nombre d'invites est superieur au nombre de places disponible\n" << nbPersonnesTotal<<" invites pour "<< nbPlacesTotal <<" places disponibles\n\n";

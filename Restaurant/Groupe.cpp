@@ -11,6 +11,7 @@ Groupe::Groupe(int nombre_pers, std::string nom_groupe, int nombre_ref)
     nom = nom_groupe;
     nb_ref = nombre_ref;
 }
+
 int Groupe::nb_pers_groupe()
 {
     return nb_pers;
@@ -24,4 +25,3 @@ std::string Groupe::nom_resa_groupe()
 {
 	return std::string();
 }
-

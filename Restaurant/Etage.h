@@ -3,6 +3,7 @@
 class Etage
 {
 private:
+	//Mobilier m;
 	Salle s;
 public:
 };
