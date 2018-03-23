@@ -10,7 +10,7 @@ Salle::Salle(int _longX = 0, int _largY = 0, int _nbChaises = 0, int _nbTables =
 {
 	longueurX = _longX;
 	longueurY = _largY;
-	nbChaises = _nbChaises; srand( time(NULL));
+	nbChaises = _nbChaises; srand( (unsigned int ) time(NULL));
 	nbTables = _nbTables;
 	Generer();
 }
@@ -19,7 +19,7 @@ Salle::Salle()
 {
 	longueurX = 0;
 	longueurY = 0;
-	nbChaises = 0; srand(time(NULL));
+	nbChaises = 0; srand((unsigned int ) time(NULL));
 	nbTables = 0;
 }
 

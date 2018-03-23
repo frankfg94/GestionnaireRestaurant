@@ -13,10 +13,14 @@ private:
 	Groupe* listeGroupes;// contient l'ensemble des groupes
 	char* tabchar;
 public:
+	int GetNbGroupes();
+	int GetNbPlacesTotal();
+	int GetNbPesonnesTotal();
+	double GetLongueurResto();
+	double GetLargeurResto();
     int nbEtages;
 	Etage * listeEtages; // contient l'ensemble des etages
 	void Creer(); // retourne un tableau dynamique des données essentielles
 	Restaurant(double _largeur = 0, double _longueur = 0, int _etages = 0, int * _places = 0);
 	void Afficher();
-	void Aff();
 };

@@ -20,6 +20,31 @@ void SecuriserInt(double inputVariable, string messageQuestion)
 
 
 
+int Restaurant::GetNbGroupes()
+{
+	return nbGroupes;
+}
+
+int Restaurant::GetNbPlacesTotal()
+{
+	return nbPlacesTotal;
+}
+
+int Restaurant::GetNbPesonnesTotal()
+{
+	return nbPersonnesTotal;
+}
+
+double Restaurant::GetLongueurResto()
+{
+	return longueurResto;
+}
+
+double Restaurant::GetLargeurResto()
+{
+	return largeurResto;
+}
+
 void Restaurant::Creer()
 {
 	int* data = new int[20];
@@ -55,7 +80,7 @@ void Restaurant::Creer()
 
 	for (int i = 0; i < nbEtages; i++)
 	{
-		listeEtages[i].Aff();
+		listeEtages[i].Affiche();
 	}
 
 	for (int i = 0; i < nbGroupes; i++)
