@@ -8,7 +8,7 @@ Mobilier::Mobilier(int _etage, int _nbChaises = 0, int _nbTables = 0)
 	nbTables = _nbTables;
 }
 
-void Mobilier::ModifierMobilier( int _nbChaises = 0, int _nbTables = 0)
+void Mobilier::ModifierierMobilier( int _nbChaises = 0, int _nbTables = 0)
 {
 	nbTables = _nbTables;
 	nbChaises = _nbChaises;

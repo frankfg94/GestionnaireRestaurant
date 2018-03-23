@@ -1,0 +1,54 @@
+# depslib dependency file v1.0
+1521470199 source:c:\users\gillioen\documents\github\gestionnairerestaurant\restaurant\etage.cpp
+	"Etage.h"
+	<iostream>
+	<string.h>
+
+1521470795 c:\users\gillioen\documents\github\gestionnairerestaurant\restaurant\etage.h
+	"Salle.h"
+
+1521470410 c:\users\gillioen\documents\github\gestionnairerestaurant\restaurant\salle.h
+	<iostream>
+	<string>
+
+1521395174 source:c:\users\gillioen\documents\github\gestionnairerestaurant\restaurant\groupe.cpp
+	"Groupe.h"
+	<iostream>
+	<string>
+	<cstring>
+
+1521395378 c:\users\gillioen\documents\github\gestionnairerestaurant\restaurant\groupe.h
+	<iostream>
+	<string>
+
+1521470599 source:c:\users\gillioen\documents\github\gestionnairerestaurant\restaurant\main.cpp
+	<iostream>
+	<string>
+	"Salle.h"
+	"Groupe.h"
+	"Mobilier.h"
+	"Restaurant.h"
+	<stdlib.h>
+
+1521645585 c:\users\gillioen\documents\github\gestionnairerestaurant\restaurant\mobilier.h
+	<string>
+
+1521644737 c:\users\gillioen\documents\github\gestionnairerestaurant\restaurant\restaurant.h
+	<iostream>
+	"Groupe.h"
+	"Etage.h"
+
+1521645396 source:c:\users\gillioen\documents\github\gestionnairerestaurant\restaurant\mobilier.cpp
+	"Mobilier.h"
+	<iostream>
+
+1521468534 source:c:\users\gillioen\documents\github\gestionnairerestaurant\restaurant\restaurant.cpp
+	"restaurant.h"
+	<string>
+	<iostream>
+
+1521470435 source:c:\users\gillioen\documents\github\gestionnairerestaurant\restaurant\salle.cpp
+	<iostream>
+	<string>
+	"Salle.h"
+

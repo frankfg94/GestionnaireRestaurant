@@ -119,6 +119,7 @@
     <ClCompile Include="Groupe.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mobilier.cpp" />
+    <ClCompile Include="ObjetMobilier.cpp" />
     <ClCompile Include="Restaurant.cpp" />
     <ClCompile Include="Salle.cpp" />
   </ItemGroup>
@@ -126,6 +127,7 @@
     <ClInclude Include="Etage.h" />
     <ClInclude Include="Groupe.h" />
     <ClInclude Include="Mobilier.h" />
+    <ClInclude Include="ObjetMobilier.h" />
     <ClInclude Include="Restaurant.h" />
     <ClInclude Include="Salle.h" />
   </ItemGroup>

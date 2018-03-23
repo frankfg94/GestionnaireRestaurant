@@ -1,6 +1,9 @@
 #include "restaurant.h"
 #include <string>
 #include <iostream>
+#include <cmath>
+
+
 using namespace std;
 
 void SecuriserInt(double inputVariable, string messageQuestion)
@@ -15,6 +18,8 @@ void SecuriserInt(double inputVariable, string messageQuestion)
 	}
 }
 
+
+
 void Restaurant::Creer()
 {
 	int* data = new int[20];
@@ -25,9 +30,15 @@ void Restaurant::Creer()
 	cout << " 4 / Combien y a t-il d'etages : ";cin >> nbEtages; SecuriserInt(nbEtages, " 4 / Combien y a t-il d'etages :");
 	cout << endl;
 
+	nbGroupes = abs(nbGroupes);
+	nbEtages = abs(nbEtages);
+	largeurResto = abs(largeurResto);
+	longueurResto = abs(largeurResto);
+
 	// Initialisation dynamique
 	nbPlacesEtage = new int[nbEtages];
 	listeGroupes = new Groupe[nbGroupes];
+	listeEtages = new Etage[nbEtages];
 
 	cout << "\\   Etages   \\" << endl;
 	for (int i = 0; i < nbEtages; i++)
@@ -35,6 +46,16 @@ void Restaurant::Creer()
 		cout << "	Combien y a t-il de places a l'etage " << i << ": ";
 		cin >> nbPlacesEtage[i];
 		nbPlacesTotal += nbPlacesEtage[i];
+
+		// On met à jour l'étage correspondant
+		listeEtages[i].setID(i);
+		listeEtages[i].setNbChaises(nbPlacesEtage[i]);
+		
+	}
+
+	for (int i = 0; i < nbEtages; i++)
+	{
+		listeEtages[i].Aff();
 	}
 
 	for (int i = 0; i < nbGroupes; i++)
@@ -74,16 +95,69 @@ Restaurant::Restaurant(double _largeur, double _longueur, int _etages, int*	_pla
 		nbPlacesEtage = _places;
 	}
 
+
+
+// Utilisation des flèches directionnelles
+
+#define KEY_UP 72
+
+#define KEY_DOWN 80
+
+#define ESC 27
+
+#include <conio.h>
+
+
 	void Restaurant::Afficher()
 {
 		cout << "\n\n-------------Informations sur le restaurant-------------\n\n";
 		cout << "Votre restaurant a une largeur de " << largeurResto << "m, une longueur de " << longueurResto << "m\n et a " << nbEtages << "etages." << endl;
-		for(int i = 0; i < nbEtages; i++)
-		{
-			cout << "Etage "<< i<<" : " << nbPlacesEtage[i] << " places " << endl;
-		}
+
 		for (int i = 0; i < nbGroupes; i++)
 		{
 			cout << "Groupe " << listeGroupes[i].nom << " : " << listeGroupes[i].nb_pers << " personnes ("<< listeGroupes[i].nb_ref <<")" << endl;
 		}
+
+		for (int i = 0; i < nbEtages; i++)
+		{
+			cout << "Etage " << i << " : " << nbPlacesEtage[i] << " places " << endl;
+		}
+
+		int c = 0;
+		int i = 0;
+		do
+		{
+			system("cls");
+			cout << "\n//		Etage		"<< i+1 <<  "/"<< nbEtages <<"		//\n";
+			if (i == 0) cout << " \n\n>>			 Etage Initial!\n\n";
+			else if (i >= nbEtages - 1) cout << "\n\n>>			 Etage Final!\n\n";
+			listeEtages[i].Affiche();
+			switch ((c = _getch()))
+			{
+			case KEY_UP:
+			{
+				if (i < nbEtages -1)
+				{
+					i++;
+				}
+				break;
+			}
+
+			case KEY_DOWN:
+			{
+				if ( i > 0 )
+				{
+					i--;
+				}
+				break;
+			}
+			default:
+			{
+				break;
+			}
+			}
+			c = 0; // on annule la valeur enregistree pour pouvoir en entrer une nouvelle
+		} while (c != ESC);
+		cout << "Touche ESC pressee, sortie de notre affichage etage par etage\n";
+
 }

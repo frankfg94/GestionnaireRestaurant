@@ -3,23 +3,31 @@
 
 #include <iostream>
 #include <string>
+#include "Etage.h"
 
 class Salle
 {
-    private:
-      int coord_x;
-      int coord_y;
-      int nb_chaise;
-      int nb_table;	
-	  char** tab;
-    public:
-        Salle();
-        void aff_info_salle();
-        void modif_salle();
-		void modif_salle_fast(int longueurX, int largeurY, int nbChaises, int nbTables);
-		void test_salle();
-		char** Generer(int x, int y);
-		void Afficher(int zoneX, int zoneY);
+private:
+	int longueurX;
+	int longueurY;
+	int nbChaises;
+	int nbTables;
+	//Etage etage;
+
+public:
+	char** tab;
+	Salle(int longX, int largY, int nbChaises, int nbTables);
+	Salle();
+	void AfficherInfos();
+	void Modifier();
+	void ModifierierRapide(int longueurX, int largeurY, int nbChaises, int nbTables);
+	void Afficher();
+	void Generer();
+	void PlacerChaise(int x, int y);
+	void PlacerTable(int x, int y);
+	void PlacementBasique();
+
 };
 
 #endif // SALLE_H_INCLUDED
+
