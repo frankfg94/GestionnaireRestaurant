@@ -46,9 +46,9 @@ int main()
 	Salle Room(20,20,200,200);
 
 	Room.AfficherInfos();
-
 	Room.PlacementBasique();
 	Room.Afficher();
+	
 	do 
 	{
 		cout << "\n\n-----------GESTIONNAIRE DE RESTAURANT--------------\n";

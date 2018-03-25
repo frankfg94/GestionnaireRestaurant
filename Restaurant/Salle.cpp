@@ -91,6 +91,7 @@ void Salle::Afficher()
 			cout << tab[x][y];
 		}
 		cout << "|" << endl;
+
 	}
 	cout << "|";
 	for (int j = 0; j < longueurX; j++)
@@ -104,11 +105,13 @@ void Salle::Afficher()
 void Salle::PlacerChaise(int x, int y)
 {
 	tab[y][x] = '+';
+	nbChaises--;
 }
 
 void Salle::PlacerTable(int x, int y)
 {
 	tab[y][x] = '#';
+	nbTables--;
 }
 
 void Salle::PlacementBasique()
@@ -120,15 +123,19 @@ void Salle::PlacementBasique()
 		{
 			if (nbTables > 0 && nbChaises > 0)
 			{
-					tab[i - 1][w] = '+';
-					nbChaises--;
+				// premiere chaise
+					PlacerChaise(i-1,w);
+
+				// Table
+					// i pos en hauteur
+					// w pos en longueur
 				tab[i][w] = '#';
+
+				// deuxieme chaise
 				if (nbChaises > 0)
 				{
-					tab[i + 1][w] = '+';
-					nbChaises--;
+					PlacerChaise(i + 1, w);
 				}
-				nbTables--;
 			}
 		}
 	}

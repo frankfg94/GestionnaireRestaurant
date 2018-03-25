@@ -19,11 +19,11 @@ using namespace std;
 
  void Etage::Affiche()
  {
-	 cout << "\nNom etage			:" << getNom() << endl;
-	 cout << "Schema				:" << getSchema() << endl;
-	 cout << "Nombre de tables		:" << getNbTables() << endl;
-	 cout << "Nombre de chaises		:" << getNbChaises() << endl;
-	 cout << "ID					:" << getID() << endl;
+	 cout << "\nNom etage			:	" << getNom() << endl;
+	 cout << "Schema				:	" << getSchema() << endl;
+	 cout << "Nombre de tables		:	" << getNbTables() << endl;
+	 cout << "Nombre de chaises		:	" << getNbChaises() << endl;
+	 cout << "ID					:	" << getID() << endl;
  }
 
  std::string Etage::getNom()
