@@ -15,15 +15,23 @@ using namespace std;
 	 schema = "Pas de schema";
 	 nbTables = 0;
 	 nbChaises = 0;
+	 // A linker
+	 Salle s(10, 10, 10, 10);
+	 setNbSalles(1);
+	 listeSalles = new Salle[10];
+	 listeSalles[0] = s;
  }
 
  void Etage::Affiche()
  {
-	 cout << "\nNom etage			:	" << getNom() << endl;
-	 cout << "Schema				:	" << getSchema() << endl;
-	 cout << "Nombre de tables		:	" << getNbTables() << endl;
-	 cout << "Nombre de chaises		:	" << getNbChaises() << endl;
-	 cout << "ID					:	" << getID() << endl;
+	 cout << "\nNom etage					:	" << getNom() << endl;
+	 //cout << "Schema						:	" << (listeSalles[0].ConvertChar2DToString(listeSalles[0].GetSchema(), listeSalles[0].GetLongueurX(),listeSalles[0].GetLongueurY())) << endl;
+	 cout << "Schema						:	"; listeSalles[0].Afficher() ;
+	 cout << "Nombre de tables Etage		:	" << getNbTables() << endl;
+	 cout << "Nombre de chaises Etage		:	" << getNbChaises() << endl;
+	 cout << "Nombre de tables Salle		:	" << listeSalles[0].GetNbTables() << endl;
+	 cout << "Nombre de chaises Salle		:	" << listeSalles[0].GetNbChaises() << endl;
+	 cout << "ID				 			:	" << getID() << endl;
  }
 
  std::string Etage::getNom()
@@ -31,19 +39,37 @@ using namespace std;
 	 return nom;
  }
 
- std::string Etage::getSchema()
+ int Etage::getNbSalles()
  {
-	 return schema;
+	 return nbSalles;
  }
+
+ void Etage::setNbSalles(int nb)
+ {
+	 nbSalles = nb;
+ }
+
 
  int Etage::getNbChaises()
  {
+
 	 return nbChaises;
  }
 
  int Etage::getNbTables()
  {
 	 return nbTables;
+ }
+
+ void Etage::setNbChaises(int nb)
+ {
+
+	  nbChaises = nb;
+ }
+
+ void Etage::setNbTables(int nb)
+ {
+	 nbTables = nb;
  }
 
  int Etage::getID()
@@ -56,17 +82,9 @@ using namespace std;
 	id = _id ;
  }
 
- void Etage::setNbChaises(int _nbChaises)
- {
-	 nbChaises = _nbChaises ;
- }
 
- void Etage::setNbTables(int _nbTables)
- {
-	 nbTables = _nbTables;
- }
 
  Etage::~Etage()
  {
-
+	 
  }

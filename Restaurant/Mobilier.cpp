@@ -1,6 +1,13 @@
 #include "Mobilier.h"
 #include <iostream>
 
+
+Mobilier::Mobilier()
+{
+
+}
+
+
 Mobilier::Mobilier(int _etage, int _nbChaises = 0, int _nbTables = 0)
 {
 	etage = _etage;

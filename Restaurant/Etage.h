@@ -12,19 +12,25 @@ class Etage
 private:
 	std::string nom;
 	std::string schema;
-	int id;
+    int id;
 	int nbChaises;
 	int nbTables;
+	int nbSalles;
 public:
 	Etage();
 	void Affiche();
 	std::string getNom();
-	std::string getSchema();
+	int getNbSalles();
+	void setNbSalles(int nb);
 	int getNbChaises();
 	int getNbTables();
 	int getID();
 	void setID(int _id);
 	void setNbChaises(int _nbChaises);
 	void setNbTables(int _nbTables);
+	Salle* listeSalles; // contient l'ensemble des salles
 	~Etage();
 };
+
+
+	

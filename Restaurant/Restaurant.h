@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Groupe.h"
 #include "Etage.h"
+#include "Mobilier.h"
 class Restaurant
 {
 private:
@@ -10,6 +11,7 @@ private:
     int* nbPlacesEtage; // tableau indiquant le n	ombre de places pour chaque etage
 	int nbPlacesTotal;
 	int nbGroupes;
+	Mobilier mobilier;
 	Groupe* listeGroupes;// contient l'ensemble des groupes
 	char* tabchar;
 public:

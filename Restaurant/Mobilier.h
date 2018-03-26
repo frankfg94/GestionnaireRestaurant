@@ -4,6 +4,7 @@
 class Mobilier
 {
 public :
+	Mobilier();
 	Mobilier(int _NumEtage, int _NbChaises, int _NbTables);
 	void ModifierierMobilier(int _NbChaises, int _NbTables);
 	void AfficherMobilierTotal(); // exception, seule fois où ce n'est pas pour tout l'étage

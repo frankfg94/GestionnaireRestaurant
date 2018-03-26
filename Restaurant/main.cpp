@@ -5,6 +5,7 @@
 #include "Mobilier.h"
 #include "Restaurant.h"
 #include <stdlib.h> // permet de supprimer l'affichage de la console
+#include "Enum.h"
 using namespace std;
 
 void SecuriserInt2(double inputVariable, string messageQuestion)
@@ -44,9 +45,8 @@ int main()
 	string menu = "\n 1.Generer\n 2.Quitter\n";
 	Restaurant resto;
 	Salle Room(20,20,200,200);
-
 	Room.AfficherInfos();
-	Room.PlacementBasique();
+	Room.PlacementBasique(PlacementType::fete);
 	Room.Afficher();
 	
 	do 
@@ -60,7 +60,6 @@ int main()
 		cout << "\n\n\n";
 		switch (x)
 		{
-		
 		case 1:
 			resto.Creer();
 			menu = "\n 1.Re-Generer\n 2.Afficher\n 3.Quitter\n";
