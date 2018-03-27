@@ -9,16 +9,18 @@
 
 using namespace std;
 
- Etage::Etage()
+
+ Etage::Etage(int _nbChaises, int _nbTables)
  {
 	 nom = "Sans nom";
 	 schema = "Pas de schema";
-	 nbTables = 0;
-	 nbChaises = 0;
-	 // A linker
-	 Salle s(10, 10, 10, 10);
+	 // Il faut trouver un moyen de faire passer en arguments NbChaises et NbTables
+	 Salle s(Restaurant::GetLongueurResto(), Restaurant::GetLargeurResto(), _nbChaises, _nbTables);
+	 cout << "Longueur" << Restaurant::GetLongueurResto();
+	 cout << "Largeur" <<  Restaurant::GetLargeurResto();
 	 setNbSalles(1);
 	 listeSalles = new Salle[10];
+	 s.SetEtage(this);
 	 listeSalles[0] = s;
  }
 
@@ -49,6 +51,16 @@ using namespace std;
 	 nbSalles = nb;
  }
 
+ void Etage::SetNbPlacesPrises(int nb)
+ {
+	 nbPlacesPrisesEtage = nb;
+ }
+
+
+ int Etage::GetNbPlacesPrises()
+ {
+	 return nbPlacesPrisesEtage;
+ }
 
  int Etage::getNbChaises()
  {

@@ -6,6 +6,9 @@
 
 using namespace std;
 
+
+
+
 void SecuriserInt(double inputVariable, string messageQuestion)
 {
 	while (cin.fail())
@@ -30,16 +33,25 @@ int Restaurant::GetNbPlacesTotal()
 	return nbPlacesTotal;
 }
 
+int nbPersonnesTotal;
 int Restaurant::GetNbPesonnesTotal()
 {
 	return nbPersonnesTotal;
 }
 
+int Restaurant::nbPersonnesTotal;
+void Restaurant::SetNbPesonnesTotal(int nb)
+{
+	nbPersonnesTotal = nb;
+}
+
+double Restaurant::longueurResto;
 double Restaurant::GetLongueurResto()
 {
 	return longueurResto;
 }
 
+double Restaurant::largeurResto;
 double Restaurant::GetLargeurResto()
 {
 	return largeurResto;
@@ -47,19 +59,17 @@ double Restaurant::GetLargeurResto()
 
 void Restaurant::Creer()
 {
-	int* data = new int[20];
 	cout << "---------------MENU DE GENERATION DU RESTAURANT-----------------" << endl << endl;
 	cout << " 1 / Quelle est la largeur du restaurant: "; cin >> largeurResto; SecuriserInt(largeurResto, " 1 / Quelle est la largeur du restaurant : ");
 	if (largeurResto != -1)
 	{
-		cout << "Ecrire -1 pour creation automatique";
 		cout << " 2 / Quelle est la longueur du restaurant: "; cin >> longueurResto; SecuriserInt(longueurResto, " 2 / Quelle est la longueur du restaurant : ");
 		cout << " 3 / Combien y a t-il de groupes: "; cin >> nbGroupes; SecuriserInt(nbGroupes, " 3 / Combien y a t-il de groupes :");
 		cout << " 4 / Combien y a t-il d'etages : "; cin >> nbEtages; SecuriserInt(nbEtages, " 4 / Combien y a t-il d'etages :");
 		cout << endl;
 
 
-
+		// Sécurisation des saisies négatives, par une mise en valeur absolue
 		nbGroupes = abs(nbGroupes);
 		nbEtages = abs(nbEtages);
 		largeurResto = abs(largeurResto);
@@ -77,31 +87,13 @@ void Restaurant::Creer()
 			cin >> nbPlacesEtage[i];
 			nbPlacesTotal += nbPlacesEtage[i];
 
-			// On met à jour l'étage correspondant
-			listeEtages[i].setID(i);
-			listeEtages[i].setNbChaises(nbPlacesEtage[i]);
-
-			// On rajoute +1 pour avoir une table de plus ou de moins
-			int nbTables = (int)((nbPlacesEtage[i] + 1) / 2);
-			listeEtages[i].setNbTables(nbTables);
+			// Creation d'un etage et ajout à la liste
+			Etage e(nbPlacesEtage[i], (int)((nbPlacesEtage[i] + 1) / 2));
+			e.setID(i);
+			listeEtages[i] = e;
 		}
 
-		for (int i = 0; i < nbEtages; i++)
-		{
-			Etage etage = listeEtages[i];
-			for (int j = 0; j < etage.getNbSalles(); j++)
-			{
-				cout << "Traitement etage : " << i << endl;
-				cout << "j = " << j << endl;
-				etage.listeSalles[j].Generer();
-				if (j == 0)etage.listeSalles[j].PlacementBasique(PlacementType::compresse);
-				else if (j == 1) etage.listeSalles[j].PlacementBasique(PlacementType::compresseCouloir);
-				else if (j == 2) etage.listeSalles[j].PlacementBasique(PlacementType::espace);
-				else if (j == 3) etage.listeSalles[j].PlacementBasique(PlacementType::espace);
-			}
-			//listeEtages[i].
-		}
-
+		// Création des groupes
 		for (int i = 0; i < nbGroupes; i++)
 		{
 			Groupe g;
@@ -109,8 +101,9 @@ void Restaurant::Creer()
 			cout << "\\   Groupe " << i + 1 << "   \\" << endl;
 			cout << "	a ) Entrer le nom du groupe : ";
 
+			// cin.ignore() est necessaire pour ne pas avoir de problème d'affichage
 			cin.ignore();
-			getline(cin, g.nom); // cin.ignore() est necessaire pour ne pas sauter de lignes
+			getline(cin, g.nom);
 
 			cout << "	b ) Entrer le numero de reference du groupe : "; cin >> g.nb_ref; SecuriserInt(g.nb_ref, "Numero de reference : ");
 			cout << "	c ) Entrer le nombre de personnes dans le groupe : "; cin >> g.nb_pers; SecuriserInt(g.nb_pers, "Nombre de personnes : ");
@@ -120,16 +113,37 @@ void Restaurant::Creer()
 			}
 			nbPersonnesTotal += g.nb_pers;
 			cout << endl;
+			listeGroupes[i] = g;
+			
 		}
+
+		// Création des étages
+		for (int i = 0; i < nbEtages; i++)
+		{
+			// A simplifier
+			Etage etage = listeEtages[i];
+			for (int j = 0; j < etage.getNbSalles(); j++)
+			{
+				cout << "Traitement etage : " << i << endl;
+				cout << "j = " << j << endl;
+				if (i == 0)			etage.listeSalles[j].PlacementBasique(PlacementType::compresse);
+				else if (i == 1)	etage.listeSalles[j].PlacementBasique(PlacementType::compresseCouloir);
+				else if (i == 2)	etage.listeSalles[j].PlacementBasique(PlacementType::espace);
+				else if (i == 3)	etage.listeSalles[j].PlacementBasique(PlacementType::fete);
+				if(i == 0)
+				etage.listeSalles[j].SetNbPlacesPrises(listeGroupes[0].nb_pers_groupe());
+			}
+		}
+
+
 
 	}
 	else
 	{
 		nbGroupes = 2;
 		nbEtages = 4;
-		
 		largeurResto = 10;
-		longueurResto = 10;
+		longueurResto = 30;
 		cout << "//			Creation automatique			//\n";
 		Groupe A(10, "Ten", 5173);
 		Groupe B(1, "Agent special", 007);
@@ -142,21 +156,32 @@ void Restaurant::Creer()
 			int nbTables = (int)((listeEtages[i].getNbChaises() + 1) / 2);
 			listeEtages[i].setNbTables(nbTables);
 		}
+		// On parcourt tous les étages d'indice j
 		for (int i = 0; i < nbEtages; i++)
 		{
 			Etage etage = listeEtages[i];
+			// On parcourt les salles d'indice i de cet étage d'indice j
 			for (int j = 0; j < etage.getNbSalles(); j++)
 			{
 				cout << "Traitement etage : " << i << "	|	";
 				cout << "j = " << j << endl;
-				Salle salle = etage.listeSalles[j];
-				salle.Generer();
-				if (i == 0)salle.PlacementBasique(PlacementType::compresse);
-				else if (i == 1) salle.PlacementBasique(PlacementType::compresseCouloir);
-				else if (i == 2) salle.PlacementBasique(PlacementType::espace);
-				else if (i == 3) salle.PlacementBasique(PlacementType::fete);
+
+				// Pour l'instant, nous avons le même nombre de chaises par étage que dans une salle car il n'y a qu'une seule salle
+				etage.listeSalles[j].SetNbChaises(etage.getNbChaises());
+
+				// On adapte le nombre de tables au nombre de chaises, en arrondissant la division à l'entier supérieur
+				int nbTables = (int)((etage.getNbChaises() + 1) / 2);
+				etage.listeSalles[j].SetNbTables(nbTables);
+
+				etage.listeSalles[j].Generer();
+
+				// On effectue un placement différent pour chaque étage
+				if (i == 0)etage.listeSalles[j].PlacementBasique(PlacementType::compresse);
+				else if (i == 1) etage.listeSalles[j].PlacementBasique(PlacementType::compresseCouloir);
+				else if (i == 2) etage.listeSalles[j].PlacementBasique(PlacementType::espace);
+				else if (i == 3) etage.listeSalles[j].PlacementBasique(PlacementType::fete);
 			}
-			//listeEtages[i].
+			
 		}
 		listeGroupes[0] = A;
 		listeGroupes[1] = B;

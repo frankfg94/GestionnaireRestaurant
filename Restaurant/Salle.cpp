@@ -4,6 +4,7 @@
 #include "time.h"
 #include <cstdlib>
 #include "Enum.h"
+#include "Restaurant.h"
 using namespace std;
 
 
@@ -32,6 +33,42 @@ void Salle::SetLongueurX(int l)
 void Salle::SetLongueurY(int l)
 {
 	longueurY = l;
+}
+	
+void Salle::SetNbPlacesPrises(int nb)
+{
+			for (int i = 0; i < longueurX; i++)
+			{
+				for (int j = 0; j < longueurY; j++)
+				{
+					cout << "Nombre places utilisees" << nombrePlacesPrisesSalle << endl;
+					cout << "Taille GRP: " << nb << endl;
+					
+					if (nombrePlacesPrisesSalle < nb)
+					{
+						if (tab[i][j] == '+')
+						{
+							tab[i][j] = 'p';
+							nombrePlacesPrisesSalle++;
+						}
+					}
+				}
+			}
+}
+
+int Salle::GetNbPlacesPrises()
+{
+	return nombrePlacesPrisesSalle;
+}
+
+Etage* Salle::GetEtage()
+{
+	return etage;
+}
+
+void Salle::SetEtage(Etage* _etage)
+{
+	 etage = _etage;
 }
 
 int Salle::GetLongueurX()
@@ -120,21 +157,26 @@ void Salle::ModifierierRapide(int _longX, int _largY, int _nbChaises, int _nbTab
 
 void Salle::Generer()
 {
-	// INITIALISATION
+	cout << longueurX << endl; 
+	cout << longueurY << endl;
+	// DECLARATION
+	// A rajouter Y pour libérer la mémoire
 	tab = new char*[longueurY];
-	for (int i = 0; i < longueurX; i++)
-	{
+	for (int i = 0; i <longueurY ; i++)
+	{	
 		tab[i] = new char[longueurX];
 	}
 
 	// REMPLISSAGE AVEC DES CARACTERES VIDES
 	for (int y = 0; y < longueurY ; y++)
 	{
-		for (int x = 0; x < longueurX; x++ )
+		for (int x = 0; x < longueurX; x++ ) 
 		{
+			// Erreur s'arrête à x = 10 alors que cela devrait aller jusqu'à 20 (pas assez alloué)
 			tab[y][x] = ' ';
-			//cout << tab[y][x];
+			cout << tab[y][x];
 		}
+		cout << endl;
 	}
 }
 
@@ -143,28 +185,37 @@ void Salle::Afficher()
 	int x = 0;
 	int y = 0;
 	cout << "\n|";
-	for (int i = 0; i < longueurX; i++)
+	if (longueurX != 0 && longueurY != 0)
 	{
-		cout << "*";
-	}
-	cout << "|" << endl;
-	for (int x = 0; x < longueurX; x++)
-	{
-		cout << "|";
-		for (int y = 0; y < longueurX; y++)
+		for (int i = 0; i < longueurX; i++)
 		{
-			cout << tab[x][y];
+			cout << "*";
 		}
 		cout << "|" << endl;
+		for (int x = 0; x < longueurX; x++)
+		{
+			cout << "|";
+			for (int y = 0; y < longueurX; y++)
+			{
+				cout << tab[x][y];
+			}
+			cout << "|" << endl;
 
+		}
+		cout << "|";
+		for (int j = 0; j < longueurX; j++)
+		{
+			cout << "*";
+		}
+		cout << "|" << endl;
+		cout << "Il y a " << nbChaises << " chaises en reserve et " << nbTables << " tables en reserve" << endl;
 	}
-	cout << "|";
-	for (int j = 0; j < longueurX; j++)
+	else
 	{
-		cout << "*";
+		longueurX = 10;
+		longueurY = 10;
 	}
-	cout << "|" << endl;
-	cout << "Il y a " << nbChaises << " chaises en reserve et " << nbTables << " tables en reserve" << endl;
+	
 }
 
 void Salle::PlacerChaise(int x, int y)

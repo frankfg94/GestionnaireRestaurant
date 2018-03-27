@@ -124,6 +124,7 @@
     <ClCompile Include="Salle.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Enum.h" />
     <ClInclude Include="Etage.h" />
     <ClInclude Include="Groupe.h" />
     <ClInclude Include="Mobilier.h" />

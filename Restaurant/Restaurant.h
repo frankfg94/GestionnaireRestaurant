@@ -5,9 +5,9 @@
 class Restaurant
 {
 private:
-	double largeurResto;
-	double longueurResto;
-	int nbPersonnesTotal;
+	static double largeurResto;
+	static double longueurResto;
+	static int nbPersonnesTotal;
     int* nbPlacesEtage; // tableau indiquant le n	ombre de places pour chaque etage
 	int nbPlacesTotal;
 	int nbGroupes;
@@ -17,9 +17,10 @@ private:
 public:
 	int GetNbGroupes();
 	int GetNbPlacesTotal();
-	int GetNbPesonnesTotal();
-	double GetLongueurResto();
-	double GetLargeurResto();
+	static int GetNbPesonnesTotal();
+	static void SetNbPesonnesTotal(int nb);
+	static double GetLongueurResto();
+	static double GetLargeurResto();
     int nbEtages;
 	Etage * listeEtages; // contient l'ensemble des etages
 	void Creer(); // retourne un tableau dynamique des données essentielles

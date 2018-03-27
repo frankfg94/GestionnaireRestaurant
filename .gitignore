@@ -5,3 +5,14 @@ Restaurant/Debug/Restaurant.tlog/Restaurant.lastbuildstate
 *.tlog
 *.db
 *.ipch
+.vs/Restaurant/v15/ipch/AutoPCH/9d2f45445819a1b6/SALLE.ipch
+*.ipch
+*.vcxproj
+.vs/Restaurant/v15/Browse.VC.db
+.vs/Restaurant/v15/Browse.VC.opendb
+.vs/Restaurant/v15/ipch/AutoPCH/77ea1ec6b75c9572/MOBILIER.ipch
+.vs/Restaurant/v15/ipch/AutoPCH/9d2f45445819a1b6/SALLE.ipch
+.vs/Restaurant/v15/ipch/AutoPCH/a837e054625de0eb/GROUPE.ipch
+.vs/Restaurant/v15/ipch/AutoPCH/b159b2d2d09446c4/RESTAURANT.ipch
+Restaurant/Debug/Restaurant.tlog/link.command.1.tlog
+Restaurant/Debug/Restaurant.tlog/CL.write.1.tlog

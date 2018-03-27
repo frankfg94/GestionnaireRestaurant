@@ -25,8 +25,9 @@ void SecuriserInt2(double inputVariable, string messageQuestion)
 ostream &operator<<(ostream &os, const Groupe &g) 
 {
 	return os << "(nom:" << g.nom << "; nb:" << g.nb_pers << "; ref:" << g.nb_ref << ")\n";
-
 }
+
+// Créer une surchage d'opérateur type affichage pour afficher une salle
 
 int main()
 {
@@ -38,6 +39,7 @@ int main()
 	sal.Afficher();
 	*/
 	Groupe A(0, "Dupont", 212);
+	cout << A;
 	int x = 1;
 	int exit = 2;
 	static bool isGenerated = false; // verifie si le restaurant a utilisé la fonction Creer()
@@ -65,7 +67,6 @@ int main()
 			menu = "\n 1.Re-Generer\n 2.Afficher\n 3.Quitter\n";
 			isGenerated = true;
 			exit = 3;
-			cout << "Placer les tables ? A faire\n";
 			break;
 		case 2:
 			if(!isGenerated)
