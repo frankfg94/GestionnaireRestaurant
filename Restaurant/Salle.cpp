@@ -51,8 +51,8 @@ void Salle::SetNbPlacesPrises(int nb)
 			{
 				for (int j = 0; j < longueurY; j++)
 				{
-					cout << "Nombre places utilisees" << nombrePlacesPrisesSalle <<"/" << GetNbChaises() <<endl;
-					cout << "Taille GRP: " << nb << endl;
+					//cout << "Nombre places utilisees" << nombrePlacesPrisesSalle <<"/" << GetNbChaises() <<endl;
+					//cout << "Taille GRP: " << nb << endl;
 					
 					if (nombrePlacesPrisesSalle < total)
 					{
@@ -168,8 +168,6 @@ void Salle::ModifierierRapide(int _longX, int _largY, int _nbChaises, int _nbTab
 
 void Salle::Generer()
 {
-	cout << longueurX << endl; 
-	cout << longueurY << endl;
 	// DECLARATION
 	// A rajouter Y pour libérer la mémoire
 	tab = new char*[longueurY];
@@ -185,17 +183,16 @@ void Salle::Generer()
 		{
 			// Erreur s'arrête à x = 10 alors que cela devrait aller jusqu'à 20 (pas assez alloué)
 			tab[y][x] = ' ';
-			cout << tab[y][x];
+			//cout << tab[y][x];
 		}
-		cout << endl;
+		//cout << endl;
 	}
 }
-
+int nbP = 0;		// Nombre de places occupées pour cet affichage
 void Salle::Afficher(int colors = 7) // couleur grise par défaut
 {
 	int x = 0;
 	int y = 0;
-	int nbP = 0;		// Nombre de places occupées pour cet affichage
 	if(Restaurant::listeGroupes)
 	cout << "\n|NB personnes dans le premier groupe" + Restaurant::listeGroupes[0].nb_pers;
 	cout << "\n|";

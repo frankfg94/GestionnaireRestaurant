@@ -4,6 +4,8 @@
 #include <cmath>			// utilisé ici pour les valeurs absolues
 #include <windows.h>		// utilisé pour changer la couleur des caractères
 #include "Groupe.h"
+#include "botest.h"
+
 using namespace std;
 
 
@@ -26,6 +28,17 @@ int Restaurant::nbGroupes;
 int Restaurant::GetNbGroupes()
 {
 	return nbGroupes;
+}
+
+int Restaurant::nbPersonnesPlacees;
+int Restaurant::GetNbPersonnesPlacees()
+{
+	return nbPersonnesPlacees;
+}
+
+void Restaurant::SetNbPersonnesPlacees(int nb)
+{
+	nbPersonnesPlacees = nb;
 }
 
 std::string Restaurant::GetTypeResto()
@@ -104,12 +117,6 @@ void Restaurant::SecuriserNeg()
 	longueurResto = abs(largeurResto);
 }
 
-#include <iostream>
-#include "botest.h"
-#include <stdlib.h>
-
-using namespace std;
-
 void Restaurant::SaisirTypeRestaurant()
 {
 	string type;
@@ -139,6 +146,7 @@ void Restaurant::SaisirTypeRestaurant()
 	cout << "Choississez le type de votre restaurant:" << endl << endl;
 	cout << "1 = Francais        6  = Fast-Food" << endl << "2 = Indien          7  = Pizzeria" << endl << "3 = Japonnais       8  = Kebab" << endl << "4 = Italien         9  = Creperie" << endl << "5 = chinois         10 = Bar a tapas" << endl << endl;
 	cin >> test;
+	// utilsier un switch après
 	if (test == 0 || test >= 11)
 	{
 		cout << "mauvaise saisie" << endl;
@@ -209,26 +217,32 @@ void Restaurant::Creer()
 		nbPlaceSetage = new int[nbEtages];
 		listeEtages = new Etage[nbEtages];
 		int nbSalles = 0;
+		std::string nomEtage;
 		cout << "\\   Etages   \\" << endl;
 		for (int i = 0; i < nbEtages; i++)
 		{
-			cout << "	Combien y a t-il de salles a rajouter : ";
+			cout << "||   Etage   " << i << endl;
+			cout << "		Combien y a t-il de salles a rajouter : ";
 			cin >> nbSalles;
-			cout << "	Combien y a t-il de places a l'etage " << i << ": ";
+			cout << "		Combien y a t-il de places a l'etage " << i << ": ";
 			cin >> nbPlaceSetage[i];
 			nbPlacesTotal += nbPlaceSetage[i];
-			cout << nbPlaceSetage[i];
+			cout << "		Quel est le nom de l'etage " << i << ": ";
+			cin >> nomEtage;
 			// Creation d'un etage et ajout à la liste
 			Etage e(nbPlaceSetage[i], (int)((nbPlaceSetage[i] + 1) / 2));
 			e.SetID(i);
+			e.SetNom(nomEtage);
 			e.listeSalles = new Salle[nbSalles];
 			e.SetNbSalles(nbSalles);
 			for (int j = 0; j < nbSalles; j++)
 			{
-				e.listeSalles[j].SetLongueurX(GetLongueurResto());
-				e.listeSalles[j].SetLongueurY(GetLargeurResto());
+				e.listeSalles[j].SetLongueurX((int)GetLongueurResto());
+				e.listeSalles[j].SetLongueurY((int)GetLargeurResto());
 				e.listeSalles[j].SetNbChaises(e.GetNbChaises());
 				e.listeSalles[j].SetNbTables(e.GetNbTables());
+				// on remet à jour le nombre de chaises et tables
+
 				e.listeSalles[j].AfficherInfos();	
 				e.listeSalles[j].Generer();
 			}
@@ -246,9 +260,10 @@ void Restaurant::Creer()
 				else
 				{
 					e.listeSalles[j].PlacerChaiseSetTables(PlacementType::compresse);	
-				}
+				}	
+
 			}
-			cout << "Nb personnes total " << GetNbPesonnesTotal();
+			//cout << "Nb personnes total " << GetNbPesonnesTotal();
 			listeEtages[i] = e;
 		}
 
@@ -257,44 +272,13 @@ void Restaurant::Creer()
 
 		for (int i = 0; i < nbEtages; i++)
 		{
+			if(i == 0)
 			listeEtages[i].RemplirSallesAvecPlacesEntrees(GetNbPesonnesTotal());	// On place les invités
+			if (i == 1 &&  GetNbPersonnesPlacees() < GetNbPesonnesTotal())
+			{
+				//listeEtages[i].RemplirSallesAvecPlacesEntrees(GetNbPesonnesTotal() - GetNbPersonnesPlacees());	// On place les invités
+			}
 		}
-
-
-
-
-		int color = 0;
-		// Création des étages
-		//for (int i = 0; i < nbEtages; i++)
-		//{
-		//	// A simplifier
-		//	Etage etage = listeEtages[i];
-		//	for (int j = 0; j < etage.GetNbSalles(); j++)
-		//	{
-		//		cout << "Traitement etage : " << i << endl;
-		//		cout << "j = " << j << endl;
-		//		if (i == 0)			etage.listeSalles[j].PlacerChaiseSetTables(PlacementType::compresse);
-		//		else if (i == 1)	etage.listeSalles[j].PlacerChaiseSetTables(PlacementType::compresseCouloir);
-		//		else if (i == 2)	etage.listeSalles[j].PlacerChaiseSetTables(PlacementType::espace);
-		//		else if (i == 3)	etage.listeSalles[j].PlacerChaiseSetTables(PlacementType::fete);
-		//		if (i == 0) // Si premier etage
-		//		{
-		//			for (int idGrp = 0; idGrp < GetNbGroupes(); idGrp++)
-		//			{
-		//				if(idGrp == 0)			color = 13; // Couleur violette
-		//				else if (idGrp == 1)	 color = 12; // Couleur rouge
-		//				else if (idGrp == 2)	 color =  9; // Couleur bleue
-		//				else if (idGrp == 3)	color = 14; // Couleur jaune
-		//				etage.listeSalles[j].SetNbPlacesPrises(listeGroupes[idGrp].nb_pers_groupe(), color);
-		//				if (listeGroupes[idGrp].nb_pers > 0)
-		//					listeGroupes[idGrp].nb_pers--;
-		//			}
-
-		//		}
-		//	}
-		//}
-
-
 
 	}
 	else	// A refaire
@@ -331,16 +315,13 @@ void Restaurant::Creer()
 				// On adapte le nombre de tables au nombre de chaises, en arrondissant la division à l'entier supérieur
 				int nbTables = (int)((etage.GetNbChaises() + 1) / 2);
 				etage.listeSalles[j].SetNbTables(nbTables);
-
 				etage.listeSalles[j].Generer();
-
 				// On effectue un placement différent pour chaque étage
-				if (i == 0)etage.listeSalles[j].PlacerChaiseSetTables(PlacementType::compresse);
-				else if (i == 1) etage.listeSalles[j].PlacerChaiseSetTables(PlacementType::compresseCouloir);
-				else if (i == 2) etage.listeSalles[j].PlacerChaiseSetTables(PlacementType::espace);
-				else if (i == 3) etage.listeSalles[j].PlacerChaiseSetTables(PlacementType::fete);
+				if (j == 0)etage.listeSalles[j].PlacerChaiseSetTables(PlacementType::compresse);
+				else if (j == 1) etage.listeSalles[j].PlacerChaiseSetTables(PlacementType::compresseCouloir);
+				else if (j == 2) etage.listeSalles[j].PlacerChaiseSetTables(PlacementType::espace);
+				else if (j == 3) etage.listeSalles[j].PlacerChaiseSetTables(PlacementType::fete);
 			}
-			
 		}
 		listeGroupes[0] = A;
 		listeGroupes[1] = B;

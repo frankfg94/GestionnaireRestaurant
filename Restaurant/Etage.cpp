@@ -3,9 +3,6 @@
 #include <string.h>
 #include "Restaurant.h"
 #include "Salle.h"
-#include <iostream>
-
-
 
 using namespace std;
 
@@ -13,7 +10,7 @@ using namespace std;
  Etage::Etage(int _nbChaises, int _nbTables)
  {
 	 nom = "Sans nom";
-	 schema = "Pas de schema";
+//	 schema = "Pas de schema";
 	 // Il faut trouver un moyen de faire passer en arguments NbChaises et NbTables
 	 //Salle s(Restaurant::GetLongueurResto(), Restaurant::GetLargeurResto(), _nbChaises, _nbTables);
 	 cout << "Longueur			:" << Restaurant::GetLongueurResto() << endl;
@@ -48,6 +45,7 @@ using namespace std;
 	 return nom;
  }
 
+
  int Etage::GetNbSalles()
  {
 	 return nbSalles;
@@ -62,38 +60,66 @@ using namespace std;
 	 return false;
  }
 
- void Etage::RepartirChaiseSetTablesDansChaqueSalle()
- {
-	 int nbChaiseSetage = GetNbChaises();
-	 cout << "\nOn commence avec : " << nbChaiseSetage << " chaises dans la fonction de repartition\n";
-	 // On indique le nombre de chaises pour chaque salle
-	 for (int id = 0; id < GetNbSalles(); id++)
-	 {
-		 if (nbChaiseSetage > 0)
-		 {
-			 listeSalles[id].SetNbChaises(100);
-		 }
+ //void Etage::RepartirChaiseSetTablesDansChaqueSalle()
+ //{
+	// int nbChaiseSetage = GetNbChaises();
+	// cout << "\nOn commence avec : " << nbChaiseSetage << " chaises dans la fonction de repartition\n";
+	// // On indique le nombre de chaises pour chaque salle
+	// for (int id = 0; id < GetNbSalles(); id++)
+	// {
+	//	 if (nbChaiseSetage > 0)
+	//	 {
+	//		 listeSalles[id].SetNbChaises(100);
+	//	 }
 
-		 // A la fin de la repartition des chaises, on calcule le nombre de tables allant avec
-		 SetNbTables((int) (GetNbChaises()+1) /2 );
-		 cout << " Nb Chaises Salle apres repartition: " << listeSalles[id].GetNbChaises() << endl;
-		 cout << " Nb Tables  Salle apres repartition: " << listeSalles[id].GetNbTables() << endl;
-	 }
+	//	 // A la fin de la repartition des chaises, on calcule le nombre de tables allant avec
+	//	 SetNbTables((int) (GetNbChaises()+1) /2 );
+	//	 cout << " Nb Chaises Salle apres repartition: " << listeSalles[id].GetNbChaises() << endl;
+	//	 cout << " Nb Tables  Salle apres repartition: " << listeSalles[id].GetNbTables() << endl;
+	// }
 
- }
+ //}
 
  void Etage::RemplirSallesAvecPlacesEntrees(int nbPersonnesTotal)	// Permet de remplir les salles dans l'ordre
  {
 
 	 for (int idSalle = 0; idSalle < GetNbSalles(); idSalle++)
 	 {
+		 if (idSalle == 0)
+		 {
+			 cout << "NB PERSONNES A PLACER DANS PREMIERE SALLE : " << nbPersonnesTotal << endl;
+			 listeSalles[0].SetNbPlacesPrises(nbPersonnesTotal);
+			 nbPersonnesTotal -= listeSalles[0].GetNbPlacesPrises();	// On détermine le nombre de personnes à placer dans la salle suivante
+		 }
+		 else if (idSalle == 1)
+		 {
+			 cout << "NB PERSONNES A PLACER DANS DEUXIEME SALLE : " << nbPersonnesTotal << endl;
+			 listeSalles[1].SetNbPlacesPrises(nbPersonnesTotal);
+			 nbPersonnesTotal -= listeSalles[1].GetNbPlacesPrises();	// On détermine le nombre de personnes à placer dans la salle suivante
+		 }
+		 else if (idSalle == 2)
+		 {
+			 cout << "NB PERSONNES A PLACER DANS TROISIEME SALLE : " << nbPersonnesTotal << endl;
+			 listeSalles[2].SetNbPlacesPrises(nbPersonnesTotal);
+			 nbPersonnesTotal -= listeSalles[2].GetNbPlacesPrises();	// On détermine le nombre de personnes à placer dans la salle suivante
+		 }
+		 else if (idSalle >= 3)
+		 {
+			 cout << "NB PERSONNES A PLACER DANS TROISIEME SALLE : " << nbPersonnesTotal << endl;
 			 listeSalles[idSalle].SetNbPlacesPrises(nbPersonnesTotal);
+			 nbPersonnesTotal -= listeSalles[idSalle].GetNbPlacesPrises();	// On détermine le nombre de personnes à placer dans la salle suivante
+		 }
 	 }
  }
 
  void Etage::SetNbSalles(int nb)
  {
 	 nbSalles = nb;
+ }
+
+ void Etage::SetNom(std::string nomEt)
+ {
+	 nom = nomEt;
  }
 
 

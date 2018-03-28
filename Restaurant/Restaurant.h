@@ -8,6 +8,7 @@ private:
 	static double largeurResto;
 	static double longueurResto;
 	static int nbPersonnesTotal;
+	static int nbPersonnesPlacees;
     int* nbPlaceSetage; // tableau indiquant le n	ombre de places pour chaque etage
 	int nbPlacesTotal;
 	static int nbGroupes;
@@ -16,6 +17,8 @@ private:
 	std::string typeResto;
 public:
 	static int GetNbGroupes();
+	static int GetNbPersonnesPlacees();
+	static void SetNbPersonnesPlacees(int nb);
 	std::string GetTypeResto();
 	std::string SetTypeResto();
 	int GetNbPlacesTotal();
@@ -26,11 +29,10 @@ public:
 	void EnregistrerGroupes(int nbGroupes);
 	void SecuriserNeg();								// Sécurisation des saisies négatives, par une mise en valeur absolue
     int nbEtages;
-	static Groupe* listeGroupes;// contient l'ensemble des groupes
+	static Groupe* listeGroupes;						// contient l'ensemble des groupes
 	Etage * listeEtages;
-	void SaisirTypeRestaurant();
-	// contient l'ensemble des etages
-	void Creer(); // retourne un tableau dynamique des données essentielles
+	void SaisirTypeRestaurant();						// contient l'ensemble des etages
+	void Creer();										// retourne un tableau dynamique des données essentielles
 	Restaurant(double _largeur = 0, double _longueur = 0, int _etages = 0, int * _places = 0);
 	void Afficher();
 };
