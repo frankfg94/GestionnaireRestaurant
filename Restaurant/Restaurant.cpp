@@ -28,6 +28,17 @@ int Restaurant::GetNbGroupes()
 	return nbGroupes;
 }
 
+std::string Restaurant::GetTypeResto()
+{
+	return typeResto;
+}
+
+std::string Restaurant::SetTypeResto()
+{
+	return typeResto;
+}
+
+
 int Restaurant::GetNbPlacesTotal()
 {
 	return nbPlacesTotal;
@@ -93,9 +104,95 @@ void Restaurant::SecuriserNeg()
 	longueurResto = abs(largeurResto);
 }
 
+#include <iostream>
+#include "botest.h"
+#include <stdlib.h>
+
+using namespace std;
+
+void Restaurant::SaisirTypeRestaurant()
+{
+	string type;
+	Francais Fr;
+	Indien In;
+	Japonnais Jp;
+	Italien It;
+	Chinois Ch;
+	FastFood Ff;
+	Pizzeria Pi;
+	Kebab Ke;
+	Creperie Cr;
+	BarTapas Bt;
+	int test = 0;
+
+	Categorie *afffr = &Fr;
+	Categorie *affIn = &In;
+	Categorie *affJp = &Jp;
+	Categorie *affIt = &It;
+	Categorie *affCh = &Ch;
+	Categorie *affFf = &Ff;
+	Categorie *affPi = &Pi;
+	Categorie *affKe = &Ke;
+	Categorie *affCr = &Cr;
+	Categorie *affBt = &Bt;
+
+	cout << "Choississez le type de votre restaurant:" << endl << endl;
+	cout << "1 = Francais        6  = Fast-Food" << endl << "2 = Indien          7  = Pizzeria" << endl << "3 = Japonnais       8  = Kebab" << endl << "4 = Italien         9  = Creperie" << endl << "5 = chinois         10 = Bar a tapas" << endl << endl;
+	cin >> test;
+	if (test == 0 || test >= 11)
+	{
+		cout << "mauvaise saisie" << endl;
+		return;
+	}
+	else if (test == 1)
+	{
+		type = afffr->aff_categorie();
+	}
+	else if (test == 2)
+	{
+		type = affIn->aff_categorie();
+	}
+	else if (test == 3)
+	{
+		type = affJp->aff_categorie();
+	}
+	else if (test == 4)
+	{
+		type = affIt->aff_categorie();
+	}
+	else if (test == 5)
+	{
+		type = affCh->aff_categorie();
+	}
+	else if (test == 6)
+	{
+		type = affFf->aff_categorie();
+	}
+	else if (test == 7)
+	{
+		type = affPi->aff_categorie();
+	}
+	else if (test == 8)
+	{
+		type = affKe->aff_categorie();
+	}
+	else if (test == 9)
+	{
+		type = affCr->aff_categorie();
+	}
+	else if (test == 10)
+	{
+		type = affBt->aff_categorie();
+	}
+	cout << "Type enregistre : " + type << endl;
+
+}
+
+
 void Restaurant::Creer()
 {
 	cout << "---------------MENU DE GENERATION DU RESTAURANT-----------------" << endl << endl;
+	SaisirTypeRestaurant();
 	cout << " 1 / Quelle est la largeur du restaurant: "; cin >> largeurResto; SecuriserInt(largeurResto, " 1 / Quelle est la largeur du restaurant : ");
 	if (largeurResto != -1)
 	{
