@@ -48,8 +48,8 @@ int main()
 	Restaurant resto;
 	Salle Room(20,20,200,200);
 	Room.AfficherInfos();
-	Room.PlacementBasique(PlacementType::fete);
-	Room.Afficher();
+	Room.PlacerChaiseSetTables(PlacementType::espace);
+	Room.Afficher(7);
 	
 	do 
 	{

@@ -8,20 +8,23 @@ private:
 	static double largeurResto;
 	static double longueurResto;
 	static int nbPersonnesTotal;
-    int* nbPlacesEtage; // tableau indiquant le n	ombre de places pour chaque etage
+    int* nbPlaceSetage; // tableau indiquant le n	ombre de places pour chaque etage
 	int nbPlacesTotal;
-	int nbGroupes;
+	static int nbGroupes;
 	Mobilier mobilier;
-	Groupe* listeGroupes;// contient l'ensemble des groupes
 	char* tabchar;
 public:
-	int GetNbGroupes();
+	static int GetNbGroupes();
 	int GetNbPlacesTotal();
 	static int GetNbPesonnesTotal();
 	static void SetNbPesonnesTotal(int nb);
 	static double GetLongueurResto();
 	static double GetLargeurResto();
+	void EnregistrerGroupes(int nbGroupes);
+	void SecuriserNeg();								// Sécurisation des saisies négatives, par une mise en valeur absolue
+
     int nbEtages;
+	static Groupe* listeGroupes;// contient l'ensemble des groupes
 	Etage * listeEtages; // contient l'ensemble des etages
 	void Creer(); // retourne un tableau dynamique des données essentielles
 	Restaurant(double _largeur = 0, double _longueur = 0, int _etages = 0, int * _places = 0);

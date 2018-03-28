@@ -5,6 +5,7 @@
 #include <cstdlib>
 #include "Enum.h"
 #include "Restaurant.h"
+#include "windows.h"
 using namespace std;
 
 
@@ -25,6 +26,14 @@ Salle::Salle()
 	nbTables = 0;
 }
 
+bool Salle::EstComplet()
+{
+	if (GetNbPlacesPrises() == GetNbChaises())
+		return true;
+	else
+		return false;
+}
+
 void Salle::SetLongueurX(int l)
 {
 	 longueurX = l;
@@ -37,14 +46,15 @@ void Salle::SetLongueurY(int l)
 	
 void Salle::SetNbPlacesPrises(int nb)
 {
+			int total = nb + nombrePlacesPrisesSalle; // afin de pouvoir prendre en compte plusieurs groupes et pas seulement le premier si le premier est supérieur
 			for (int i = 0; i < longueurX; i++)
 			{
 				for (int j = 0; j < longueurY; j++)
 				{
-					cout << "Nombre places utilisees" << nombrePlacesPrisesSalle << endl;
+					cout << "Nombre places utilisees" << nombrePlacesPrisesSalle <<"/" << GetNbChaises() <<endl;
 					cout << "Taille GRP: " << nb << endl;
 					
-					if (nombrePlacesPrisesSalle < nb)
+					if (nombrePlacesPrisesSalle < total)
 					{
 						if (tab[i][j] == '+')
 						{
@@ -54,6 +64,7 @@ void Salle::SetNbPlacesPrises(int nb)
 					}
 				}
 			}
+
 }
 
 int Salle::GetNbPlacesPrises()
@@ -180,11 +191,15 @@ void Salle::Generer()
 	}
 }
 
-void Salle::Afficher()
+void Salle::Afficher(int colors = 7) // couleur grise par défaut
 {
 	int x = 0;
 	int y = 0;
+	int nbP = 0;		// Nombre de places occupées pour cet affichage
+	if(Restaurant::listeGroupes)
+	cout << "\n|NB personnes dans le premier groupe" + Restaurant::listeGroupes[0].nb_pers;
 	cout << "\n|";
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE); // Utilisé pour modifier la couleur d'arrière plan et des caractères
 	if (longueurX != 0 && longueurY != 0)
 	{
 		for (int i = 0; i < longueurX; i++)
@@ -197,7 +212,31 @@ void Salle::Afficher()
 			cout << "|";
 			for (int y = 0; y < longueurX; y++)
 			{
-				cout << tab[x][y];
+					if (tab[x][y] == 'p')
+					{
+						SetConsoleTextAttribute(hConsole, 11);	
+						nbP++;
+						//cout << Restaurant::listeGroupes[0].nb_pers << endl;
+						
+						if (nbP < Restaurant::listeGroupes[0].nb_pers +1 )
+						{
+							SetConsoleTextAttribute(hConsole, 14); // si ne marche pas, vérifier si listeGroupes fonctionne bien
+							//cout << nbP<< "<"<< Restaurant::listeGroupes[0].nb_pers + Restaurant::listeGroupes[1].nb_pers; Utilisé pour le debugging
+						}
+						else if (Restaurant::listeGroupes[0].nb_pers + Restaurant::listeGroupes[1].nb_pers +1  > nbP)
+						{
+							SetConsoleTextAttribute(hConsole, 12); 
+						}
+						else if (Restaurant::listeGroupes[0].nb_pers + Restaurant::listeGroupes[1].nb_pers + Restaurant::listeGroupes[2].nb_pers + 6 > nbP)
+						{
+							SetConsoleTextAttribute(hConsole, 11);
+						}
+						
+					}
+					
+					cout << tab[x][y];
+					SetConsoleTextAttribute(hConsole, 7); // on remet la console en blanc
+
 			}
 			cout << "|" << endl;
 
@@ -215,7 +254,6 @@ void Salle::Afficher()
 		longueurX = 10;
 		longueurY = 10;
 	}
-	
 }
 
 void Salle::PlacerChaise(int x, int y)
@@ -266,7 +304,7 @@ void Salle::PlacerTable(int x, int y)
 //}
 
 
-char** Salle::PlacementBasique(PlacementType t)
+char** Salle::PlacerChaiseSetTables(PlacementType t)
 {
 	cout << "Placement lance" << endl;
 	if (t == PlacementType::compresseCouloir)
