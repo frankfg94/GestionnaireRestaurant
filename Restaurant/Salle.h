@@ -12,39 +12,37 @@ private:
 	int longueurY;
 	int nbChaises;
 	int nbTables;
-	char** schema;
 	int nombrePlacesPrisesSalle = 0;
 
-	// DÈclaration Forward, utilisation d'un pointeur obligatoire pour pouvoir faire des dÈpendances circulaires
+	// D√©claration Forward, utilisation d'un pointeur obligatoire pour pouvoir faire des d√©pendances circulaires
 	Etage* etage;
 public:
-	char** tab;
+	char** tab;	//structure de la salle
 	Salle(int longX, int largY, int nbChaises, int nbTables);
 	Salle();
-	bool EstComplet();
-	bool ResteDesChaisesAPlacer();
-	void SetLongueurX(int l);
-	void SetLongueurY(int l);
-	void SetNbPlacesPrises(int nb);		// DÈconseillÈ d'utiliser de maniËre manuelle, car dÈj‡ utilisÈ par la mÍme fonction de type Ètage
-	void PlacerSimple(int nb);
-	int GetNbPlacesPrises();
-	Etage* GetEtage();
-	void SetEtage(Etage * _etage);
-	int GetLongueurX();
-	int GetNbChaises();
-	void SetNbChaises(int _nbChaises);
-	void SetNbTables(int _nbTables);
-	int GetNbTables();
-	int GetLongueurY();
-	void AfficherInfos();
-	char** GetSchema();
-	static std::string ConvertChar2DToString(char ** tab, int sizeX, int sizeY);
-	void SetSchema(char** schema);
-	void Modifier();
-	void ModifierierRapide(int longueurX, int largeurY, int nbChaises, int nbTables);
-	void Afficher(int color);
-	void Generer();							// GÈnËre une salle vide, indispensable pour pouvoir placer des tables
-	void PlacerChaise(int x, int y);
-	void PlacerTable(int x, int y);
-	char** PlacerChaiseSetTables(PlacementType t); // Permet de placer les chaises et tables selon une configuration prÈdÈfinie, voir le fichier "Enum.h"
+	bool EstComplet();	// v√©rifie si la salle est compl√®te (tout les places occup√©es)
+	bool ResteDesChaisesAPlacer();	//v√©rifie s'il reste des places
+	void SetLongueurX(int l);	//dimension de la salle
+	void SetLongueurY(int l);	//dimension de la sallle
+	void SetNbPlacesPrises(int nb);		// D√©conseill√© d'utiliser de mani√®re manuelle, car d√©j√† utilis√© par la m√™me fonction de type √©tage
+	int GetNbPlacesPrises();	//nombre de places occup√©es dans la salle
+	Etage* GetEtage();	//obtenir l'√©tage actuel
+	void SetEtage(Etage * _etage);	//changer la salle d'√©tage 
+	int GetLongueurX();	//obtenir la longueur du resto
+	int GetNbChaises();	//obtenir le nombre de chaises dans la salle
+	void SetNbChaises(int _nbChaises);	//indique le nombre de chaises pour la salle
+	void SetNbTables(int _nbTables);	//indique le nombre de tables pour la salle
+	int GetNbTables();	//obtenir le nombre de tables dans la salle
+	int GetLongueurY();	//obtenir la longueur du resto
+	void AfficherInfos();	//afficher les infos de la salle
+	char** GetSchema();	//retourne tab
+	static std::string ConvertChar2DToString(char ** tab, int sizeX, int sizeY);	//converti tab en string
+	void SetSchema(char** schema);	//modifie tab
+	void Modifier();	//demande √† l'utilisateur de saisir les dimensions x et y et le nombre de tables et de chaises
+	void ModifierierRapide(int longueurX, int largeurY, int nbChaises, int nbTables);	//idem mais sans saisie utilisateur
+	void Afficher(int color);	//affichage final couleur d'une salle 
+	void Generer();					// G√©n√®re une salle vide, indispensable pour pouvoir placer des tables
+	void PlacerChaise(int x, int y);	//placement d'une chaise 
+	void PlacerTable(int x, int y);		//placement d'une table
+	char** PlacerChaiseSetTables(PlacementType t); // Permet de placer les chaises et tables selon une configuration pr√©d√©finie, voir le fichier "Enum.h"
 };
