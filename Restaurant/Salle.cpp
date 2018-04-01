@@ -12,7 +12,7 @@ using namespace std;
 Salle::Salle(int _longX = 0, int _largY = 0, int _nbChaises = 0, int _nbTables = 0)
 {
 	longueurX = _longX;
-	longueurY = _largY;
+	LargeurY = _largY;
 	nbChaises = _nbChaises; srand( (unsigned int ) time(NULL));
 	nbTables = _nbTables;
 	Generer();
@@ -21,7 +21,7 @@ Salle::Salle(int _longX = 0, int _largY = 0, int _nbChaises = 0, int _nbTables =
 Salle::Salle()
 {
 	longueurX = 0;
-	longueurY = 0;
+	LargeurY = 0;
 	nbChaises = 0; srand((unsigned int ) time(NULL));
 	nbTables = 0;
 }
@@ -39,9 +39,9 @@ void Salle::SetLongueurX(int l)
 	 longueurX = l;
 }
 
-void Salle::SetLongueurY(int l)
+void Salle::SetLargeurY(int l)
 {
-	longueurY = l;
+	LargeurY = l;
 }
 	
 void Salle::SetNbPlacesPrises(int nb)
@@ -49,11 +49,8 @@ void Salle::SetNbPlacesPrises(int nb)
 			int total = nb + nombrePlacesPrisesSalle; // afin de pouvoir prendre en compte plusieurs groupes et pas seulement le premier si le premier est supérieur
 			for (int i = 0; i < longueurX; i++)
 			{
-				for (int j = 0; j < longueurY; j++)
+				for (int j = 0; j < LargeurY; j++)
 				{
-					//cout << "Nombre places utilisees" << nombrePlacesPrisesSalle <<"/" << GetNbChaises() <<endl;
-					//cout << "Taille GRP: " << nb << endl;
-					
 					if (nombrePlacesPrisesSalle < total)
 					{
 						if (tab[i][j] == '+')
@@ -107,16 +104,16 @@ int Salle::GetNbTables()
 	return nbTables;
 }
 
-int Salle::GetLongueurY()
+int Salle::GetLargeurY()
 {
-	return longueurY;
+	return LargeurY;
 }
 
 
 void Salle::AfficherInfos()
 {
 	cout << "//			SALLE			//\n"; // Affichage Bader
-	cout << "La salle est de taille : " << longueurX << "," << longueurY << "." << endl;
+	cout << "La salle est de taille : " << longueurX << "," << LargeurY << "." << endl;
 	cout << "elle possede :" << nbChaises << " chaises et " << nbTables << " tables." << endl;
 }
 
@@ -141,7 +138,7 @@ std::string Salle::ConvertChar2DToString(char ** tab, int sizeX, int sizeY)
 
 void Salle::SetSchema(char** _schema)
 {
-	schema = _schema;
+	tab = _schema;
 }
 
 void Salle::Modifier()
@@ -150,7 +147,7 @@ void Salle::Modifier()
 	cout << "x: ";
 	cin >> longueurX;
 	cout << "y: ";
-	cin >> longueurY;
+	cin >> LargeurY;
 	cout << "Mobilier de la salle:" << endl;
 	cout << "Nombre de chaise: ";
 	cin >> nbChaises;
@@ -161,7 +158,7 @@ void Salle::Modifier()
 void Salle::ModifierierRapide(int _longX, int _largY, int _nbChaises, int _nbTables)
 {
 	longueurX = _longX;
-	longueurY = _largY;
+	LargeurY = _largY;
 	nbChaises = _nbChaises;
 	nbTables = _nbChaises;
 }
@@ -170,22 +167,19 @@ void Salle::Generer()
 {
 	// DECLARATION
 	// A rajouter Y pour libérer la mémoire
-	tab = new char*[longueurY];
-	for (int i = 0; i <longueurY ; i++)
+	tab = new char*[LargeurY];
+	for (int i = 0; i <LargeurY ; i++)
 	{	
 		tab[i] = new char[longueurX];
 	}
 
 	// REMPLISSAGE AVEC DES CARACTERES VIDES
-	for (int y = 0; y < longueurY ; y++)
+	for (int y = 0; y < LargeurY ; y++)
 	{
 		for (int x = 0; x < longueurX; x++ ) 
 		{
-			// Erreur s'arrête à x = 10 alors que cela devrait aller jusqu'à 20 (pas assez alloué)
 			tab[y][x] = ' ';
-			//cout << tab[y][x];
 		}
-		//cout << endl;
 	}
 }
 int nbP = 0;		// Nombre de places occupées pour cet affichage
@@ -194,10 +188,9 @@ void Salle::Afficher(int colors = 7) // couleur grise par défaut
 	int x = 0;
 	int y = 0;
 	if(Restaurant::listeGroupes)
-	cout << "\n|NB personnes dans le premier groupe" + Restaurant::listeGroupes[0].nb_pers;
 	cout << "\n|";
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE); // Utilisé pour modifier la couleur d'arrière plan et des caractères
-	if (longueurX != 0 && longueurY != 0)
+	if (longueurX != 0 && LargeurY != 0)
 	{
 		for (int i = 0; i < longueurX; i++)
 		{
@@ -213,12 +206,10 @@ void Salle::Afficher(int colors = 7) // couleur grise par défaut
 					{
 						SetConsoleTextAttribute(hConsole, 11);	
 						nbP++;
-						//cout << Restaurant::listeGroupes[0].nb_pers << endl;
 						
 						if (nbP < Restaurant::listeGroupes[0].nb_pers +1 )
 						{
-							SetConsoleTextAttribute(hConsole, 14); // si ne marche pas, vérifier si listeGroupes fonctionne bien
-							//cout << nbP<< "<"<< Restaurant::listeGroupes[0].nb_pers + Restaurant::listeGroupes[1].nb_pers; Utilisé pour le debugging
+							SetConsoleTextAttribute(hConsole, 14);
 						}
 						else if (Restaurant::listeGroupes[0].nb_pers + Restaurant::listeGroupes[1].nb_pers +1  > nbP)
 						{
@@ -232,7 +223,7 @@ void Salle::Afficher(int colors = 7) // couleur grise par défaut
 					}
 					
 					cout << tab[x][y];
-					SetConsoleTextAttribute(hConsole, 7); // on remet la console en blanc
+					SetConsoleTextAttribute(hConsole, 7); // on remet la police d'écriture de la console en blanc
 
 			}
 			cout << "|" << endl;
@@ -249,7 +240,7 @@ void Salle::Afficher(int colors = 7) // couleur grise par défaut
 	else
 	{
 		longueurX = 10;
-		longueurY = 10;
+		LargeurY = 10;
 	}
 }
 
@@ -273,42 +264,14 @@ void Salle::PlacerTable(int x, int y)
 
 }
 
-//void Salle::PlacementBasique()
-//{
-//	int x = 0;
-//	int espacementLongueur = 4;
-//	int espacementHauteur = 2;
-//	for (int w = 0; w < longueurX; w = w + espacementHauteur)
-//	{
-//
-//		for (int i = 1; i + 1 < longueurY; i = i + espacementLongueur)
-//		{
-//			if (i % 2 == 0) espacementLongueur = 7; 
-//			else espacementLongueur = 4;
-//				// i pos en hauteur
-//				// w pos en longueur
-//				// premiere chaise
-//					PlacerChaise(i-1,w);
-//
-//				// Table
-//
-//					PlacerTable(i, w);	
-//
-//				// deuxieme chaise
-//					PlacerChaise(i + 1, w);
-//		}
-//	}
-//}
-
-
 char** Salle::PlacerChaiseSetTables(PlacementType t)
 {
-	cout << "Placement lance" << endl;
+	cout << endl;	
 	if (t == PlacementType::compresseCouloir)
 	{
 		for (int x = 1; x < longueurX; x = x + 4)
 		{
-			for (int y = 0; y < longueurY; y = y + 2)
+			for (int y = 0; y < LargeurY; y = y + 2)
 			{
 				if (y % 4 != 0)
 				{
@@ -330,7 +293,7 @@ char** Salle::PlacerChaiseSetTables(PlacementType t)
 	{
 		for (int x = 1; x < longueurX; x = x + 4)
 		{
-			for (int y = 0; y < longueurY; y = y + 2)
+			for (int y = 0; y < LargeurY; y = y + 2)
 			{
 				PlacerChaise(x - 1, y);
 				PlacerTable(x, y);
@@ -343,7 +306,7 @@ char** Salle::PlacerChaiseSetTables(PlacementType t)
 	{
 		for (int x = 1; x < longueurX; x = x + 6)
 		{
-			for (int y = 0; y < longueurY; y = y + 4)
+			for (int y = 0; y < LargeurY; y = y + 4)
 			{
 				PlacerChaise(x - 1, y);
 				PlacerTable(x, y);
@@ -356,7 +319,7 @@ char** Salle::PlacerChaiseSetTables(PlacementType t)
 	{
 		for (int x = 1; x < longueurX; x = x + 4)
 		{
-			for (int y = 0; y < longueurY; y = y + 1)
+			for (int y = 0; y < LargeurY; y = y + 1)
 			{
 				PlacerChaise(x - 1, y);
 				PlacerTable(x, y);

@@ -2,7 +2,6 @@
 #include <string>
 #include "Salle.h"
 #include "Groupe.h"
-#include "Mobilier.h"
 #include "Restaurant.h"
 #include <stdlib.h> // permet de supprimer l'affichage de la console
 #include "Enum.h"
@@ -20,36 +19,14 @@ void SecuriserInt2(double inputVariable, string messageQuestion)
 	}
 }
 
-
-// Surcharge d'operateur output stream, afin d'afficher les caractéristiques d'un groupe g
-ostream &operator<<(ostream &os, const Groupe &g) 
-{
-	return os << "(nom:" << g.nom << "; nb:" << g.nb_pers << "; ref:" << g.nb_ref << ")\n";
-}
-
-// Créer une surchage d'opérateur type affichage pour afficher une salle
-
 int main()
 {
-	/* Main Yoann 
-	Salle sal;
-	sal.AfficherInfos();
-	sal.Modifier_salle();
-	sal.AfficherInfos();
-	sal.Afficher();
-	*/
-	Groupe A(0, "Dupont", 212);
-	cout << A;
 	int x = 1;
 	int exit = 2;
 	static bool isGenerated = false; // verifie si le restaurant a utilisé la fonction Creer()
 	int sup = 0; 
-	string menu = "\n 1.Generer\n 2.Quitter\n";
+	string menu = "\n 1.Generer\n 2.Quitter\n";	// menu d'affichage présenté
 	Restaurant resto;
-	Salle Room(20,20,200,200);
-	Room.AfficherInfos();
-	Room.PlacerChaiseSetTables(PlacementType::espace);
-	Room.Afficher(7);
 	
 	do 
 	{

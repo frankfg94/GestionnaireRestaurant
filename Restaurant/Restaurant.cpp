@@ -4,15 +4,14 @@
 #include <cmath>			// utilisé ici pour les valeurs absolues
 #include <windows.h>		// utilisé pour changer la couleur des caractères
 #include "Groupe.h"
-#include "botest.h"
+#include "ChoixR.h"
 
-using namespace std;
+using namespace std	;
 
-
-
-
-void SecuriserInt(double inputVariable, string messageQuestion)
+// Saisie Sécurisée pour les variables type entier
+void SecuriserInt(double inputVariable, string messageQuestion)		
 {
+	// on utilise cin.fail() pour détecter les erreurs de saisie
 	while (cin.fail())
 	{
 		cin.clear();
@@ -21,8 +20,11 @@ void SecuriserInt(double inputVariable, string messageQuestion)
 		cout << messageQuestion;
 		cin >> inputVariable;
 	}
+
 }
 
+
+// Ensemble de fonctions Get() Set()
 Groupe* Restaurant::listeGroupes;
 int Restaurant::nbGroupes;
 int Restaurant::GetNbGroupes()
@@ -57,6 +59,8 @@ int Restaurant::GetNbPlacesTotal()
 	return nbPlacesTotal;
 }
 
+// A partir d'ici sont mises les fonctions statiques
+
 int nbPersonnesTotal;
 int Restaurant::GetNbPesonnesTotal()
 {
@@ -81,12 +85,19 @@ double Restaurant::GetLargeurResto()
 	return largeurResto;
 }
 
+// Surcharge d'operateur output stream, afin d'afficher les caractéristiques d'un groupe g
+ostream &operator<<(ostream &os, const Groupe &g)
+{
+	return os << "(nom:" << g.nom << "; nb:" << g.nb_pers << "; ref:" << g.nb_ref << ")\n\n";
+}
+
 void Restaurant::EnregistrerGroupes(int nbGroupes)
 {
 	// INITIALISATION
 	listeGroupes = new Groupe[nbGroupes];
 	for (int i = 0; i < nbGroupes; i++)
 	{
+		// On crée le groupe à ajouter
 		Groupe g;
 		g = listeGroupes[i];
 		cout << "\\   Groupe " << i + 1 << "   \\" << endl;
@@ -98,28 +109,38 @@ void Restaurant::EnregistrerGroupes(int nbGroupes)
 
 		cout << "	b ) Entrer le numero de reference du groupe : "; cin >> g.nb_ref; SecuriserInt(g.nb_ref, "Numero de reference : ");
 		cout << "	c ) Entrer le nombre de personnes dans le groupe : "; cin >> g.nb_pers; SecuriserInt(g.nb_pers, "Nombre de personnes : ");
+
+
+		// Ne rajouter le dernier groupe, que si l'on a assez de places pour celui-ci
 		if (g.nb_pers + nbPersonnesTotal> nbPlacesTotal)
 		{
 			cout << "Impossible d'ajouter plus de personnes :" << g.nb_pers + nbPersonnesTotal << " invites pour " << nbPlacesTotal << " places disponibles\n\n";
 		}
+
+		// A chaque création de groupe
 		Restaurant::SetNbPesonnesTotal( GetNbPesonnesTotal() + g.nb_pers);
 		cout << endl;
 		listeGroupes[i] = g;
 
+		// Affichage des attributs du groupe par surcharge d'opérateur
+		cout << g;
 	}
 }
 
 void Restaurant::SecuriserNeg()
 {
-	nbGroupes = abs(nbGroupes);
-	nbEtages = abs(nbEtages);
-	largeurResto = abs(largeurResto);
-	longueurResto = abs(largeurResto);
+	// utilisation de la fonction abs(int n) pour mettre en valeur absolue un nombre
+	if(nbGroupes < 0)	nbGroupes = abs(nbGroupes);
+	if (nbEtages < 0) nbEtages = abs(nbEtages);
+	if (largeurResto < 0) largeurResto = abs(largeurResto);
+	if (longueurResto < 0) longueurResto = abs(largeurResto);
 }
 
 void Restaurant::SaisirTypeRestaurant()
 {
 	string type;
+
+	// Ensemble des types de restaurant
 	Francais Fr;
 	Indien In;
 	Japonnais Jp;
@@ -130,7 +151,7 @@ void Restaurant::SaisirTypeRestaurant()
 	Kebab Ke;
 	Creperie Cr;
 	BarTapas Bt;
-	int test = 0;
+	int choixType = 0;
 
 	Categorie *afffr = &Fr;
 	Categorie *affIn = &In;
@@ -145,54 +166,53 @@ void Restaurant::SaisirTypeRestaurant()
 
 	cout << "Choississez le type de votre restaurant:" << endl << endl;
 	cout << "1 = Francais        6  = Fast-Food" << endl << "2 = Indien          7  = Pizzeria" << endl << "3 = Japonnais       8  = Kebab" << endl << "4 = Italien         9  = Creperie" << endl << "5 = chinois         10 = Bar a tapas" << endl << endl;
-	cin >> test;
-	// utilsier un switch après
-	if (test == 0 || test >= 11)
+	cin >> choixType; SecuriserInt((int)choixType, "Veuillez entrer un entier pour le type de restaurant: ");
+	if (choixType == 0 || choixType >= 11)
 	{
-		cout << "mauvaise saisie" << endl;
+		cout << "\nMauvaise saisie" << endl;
 		return;
 	}
-	else if (test == 1)
+	else if (choixType == 1)
 	{
 		type = afffr->aff_categorie();
 	}
-	else if (test == 2)
+	else if (choixType == 2)
 	{
 		type = affIn->aff_categorie();
 	}
-	else if (test == 3)
+	else if (choixType == 3)
 	{
 		type = affJp->aff_categorie();
 	}
-	else if (test == 4)
+	else if (choixType == 4)
 	{
 		type = affIt->aff_categorie();
 	}
-	else if (test == 5)
+	else if (choixType == 5)
 	{
 		type = affCh->aff_categorie();
 	}
-	else if (test == 6)
+	else if (choixType == 6)
 	{
 		type = affFf->aff_categorie();
 	}
-	else if (test == 7)
+	else if (choixType == 7)
 	{
 		type = affPi->aff_categorie();
 	}
-	else if (test == 8)
+	else if (choixType == 8)
 	{
 		type = affKe->aff_categorie();
 	}
-	else if (test == 9)
+	else if (choixType == 9)
 	{
 		type = affCr->aff_categorie();
 	}
-	else if (test == 10)
+	else if (choixType == 10)
 	{
 		type = affBt->aff_categorie();
 	}
-	cout << "Type enregistre : " + type << endl;
+	cout << "\nType enregistre : " + type << endl;
 
 }
 
@@ -202,8 +222,6 @@ void Restaurant::Creer()
 	cout << "---------------MENU DE GENERATION DU RESTAURANT-----------------" << endl << endl;
 	SaisirTypeRestaurant();
 	cout << " 1 / Quelle est la largeur du restaurant: "; cin >> largeurResto; SecuriserInt(largeurResto, " 1 / Quelle est la largeur du restaurant : ");
-	if (largeurResto != -1)
-	{
 		cout << " 2 / Quelle est la longueur du restaurant: "; cin >> longueurResto; SecuriserInt(longueurResto, " 2 / Quelle est la longueur du restaurant : ");
 		cout << " 3 / Combien y a t-il de groupes: "; cin >> nbGroupes; SecuriserInt(nbGroupes, " 3 / Combien y a t-il de groupes :");
 		cout << " 4 / Combien y a t-il d'etages : "; cin >> nbEtages; SecuriserInt(nbEtages, " 4 / Combien y a t-il d'etages :");
@@ -218,39 +236,39 @@ void Restaurant::Creer()
 		listeEtages = new Etage[nbEtages];
 		int nbSalles = 0;
 		std::string nomEtage;
-		cout << "\\   Etages   \\" << endl;
-		for (int i = 0; i < nbEtages; i++)
+		cout << "\n\\   Etages   \\" << endl;
+		for (int i = 0; i < nbEtages; i++)	// i est l'étage actuel
 		{
-			cout << "||   Etage   " << i << endl;
-			cout << "		Combien y a t-il de salles a rajouter : ";
-			cin >> nbSalles;
-			cout << "		Combien y a t-il de places a l'etage " << i << ": ";
-			cin >> nbPlaceSetage[i];
+			cout << "			||   Etage   " << i << "||" << endl;
+			cout << "						Combien y a t-il de salles a rajouter : ";
+			cin >> nbSalles; SecuriserInt(nbSalles, "Reessayez:");
+			cout << endl << endl;
+			cout << "						Combien y a t-il de places a l'etage " << i << ": ";
+			cin >> nbPlaceSetage[i]; SecuriserInt(nbSalles, "Reessayez:");
 			nbPlacesTotal += nbPlaceSetage[i];
-			cout << "		Quel est le nom de l'etage " << i << ": ";
-			cin >> nomEtage;
+			cout << endl << endl;
 			// Creation d'un etage et ajout à la liste
 			Etage e(nbPlaceSetage[i], (int)((nbPlaceSetage[i] + 1) / 2));
 			e.SetID(i);
-			e.SetNom(nomEtage);
+
+			// initialisation du nombre de salles pour l'étage, en fonction de la saisie utilisateur de nbSalles
 			e.listeSalles = new Salle[nbSalles];
 			e.SetNbSalles(nbSalles);
 			for (int j = 0; j < nbSalles; j++)
 			{
+				// précision des caractéristiques de la salle pour l'étage e
 				e.listeSalles[j].SetLongueurX((int)GetLongueurResto());
-				e.listeSalles[j].SetLongueurY((int)GetLargeurResto());
+				e.listeSalles[j].SetLargeurY((int)GetLargeurResto());
 				e.listeSalles[j].SetNbChaises(e.GetNbChaises());
 				e.listeSalles[j].SetNbTables(e.GetNbTables());
-				// on remet à jour le nombre de chaises et tables
-
 				e.listeSalles[j].AfficherInfos();	
 				e.listeSalles[j].Generer();
 			}
-			//e.RepartirChaiseSetTablesDansChaqueSalle(); // On indique le nombre de chaises et de tables dans chaque salle
-			for (int j = 0; j < nbSalles; j++)
+			for (int j = 0; j < nbSalles; j++)	// j est la salle actuelle, pour notre étage i
 			{
+				// puis on les place selon le mode de placement choisi ( cela décremente le nombre de chaises et de tables)
 				if (i == 0)
-					e.listeSalles[j].PlacerChaiseSetTables(PlacementType::compresse);	// puis on les place selon le mode de placement choisi ( cela décremente le nombre de chaises et de tables)
+					e.listeSalles[j].PlacerChaiseSetTables(PlacementType::compresse);	
 				else if (i == 1)
 					e.listeSalles[j].PlacerChaiseSetTables(PlacementType::compresseCouloir);
 				else if (i == 2)
@@ -259,76 +277,26 @@ void Restaurant::Creer()
 					e.listeSalles[j].PlacerChaiseSetTables(PlacementType::fete);
 				else
 				{
-					e.listeSalles[j].PlacerChaiseSetTables(PlacementType::compresse);	
+					e.listeSalles[i].PlacerChaiseSetTables(PlacementType::compresse);	
 				}	
 
 			}
-			//cout << "Nb personnes total " << GetNbPesonnesTotal();
+			// on ajoute l'étage crée à la liste des étages
 			listeEtages[i] = e;
 		}
 
-		// Création des groupes
+		// Création des groupes d'invités
 		EnregistrerGroupes(nbGroupes);
 
 		for (int i = 0; i < nbEtages; i++)
 		{
-			if(i == 0)
-			listeEtages[i].RemplirSallesAvecPlacesEntrees(GetNbPesonnesTotal());	// On place les invités
-			if (i == 1 &&  GetNbPersonnesPlacees() < GetNbPesonnesTotal())
+			if (i == 0)
 			{
-				//listeEtages[i].RemplirSallesAvecPlacesEntrees(GetNbPesonnesTotal() - GetNbPersonnesPlacees());	// On place les invités
+				// On place les invités
+				listeEtages[i].RemplirSallesAvecPlacesEntrees(GetNbPesonnesTotal());
 			}
-		}
-
-	}
-	else	// A refaire
-	{
-		nbGroupes = 2;
-		nbEtages = 4;
-		largeurResto = 10;
-		longueurResto = 30;
-		cout << "//			Creation automatique			//\n";
-		Groupe A(10, "Ten", 5173);
-		Groupe B(1, "Agent special", 007);
-		listeGroupes = new Groupe[nbGroupes];
-		listeEtages = new Etage[nbEtages];
-
-		for (int i = 0; i < nbEtages; i++)
-		{
-			listeEtages[i].SetNbChaises(10 + i*10);
-			int nbTables = (int)((listeEtages[i].GetNbChaises() + 1) / 2);
-			listeEtages[i].SetNbTables(nbTables);
-		}
-		// On parcourt tous les étages d'indice j
-		for (int i = 0; i < nbEtages; i++)
-		{
-			Etage etage = listeEtages[i];
-			// On parcourt les salles d'indice i de cet étage d'indice j
-			for (int j = 0; j < etage.GetNbSalles(); j++)
-			{
-				cout << "Traitement etage : " << i << "	|	";
-				cout << "j = " << j << endl;
-
-				// Pour l'instant, nous avons le même nombre de chaises par étage que dans une salle car il n'y a qu'une seule salle
-				etage.listeSalles[j].SetNbChaises(etage.GetNbChaises());
-
-				// On adapte le nombre de tables au nombre de chaises, en arrondissant la division à l'entier supérieur
-				int nbTables = (int)((etage.GetNbChaises() + 1) / 2);
-				etage.listeSalles[j].SetNbTables(nbTables);
-				etage.listeSalles[j].Generer();
-				// On effectue un placement différent pour chaque étage
-				if (j == 0)etage.listeSalles[j].PlacerChaiseSetTables(PlacementType::compresse);
-				else if (j == 1) etage.listeSalles[j].PlacerChaiseSetTables(PlacementType::compresseCouloir);
-				else if (j == 2) etage.listeSalles[j].PlacerChaiseSetTables(PlacementType::espace);
-				else if (j == 3) etage.listeSalles[j].PlacerChaiseSetTables(PlacementType::fete);
-			}
-		}
-		listeGroupes[0] = A;
-		listeGroupes[1] = B;
-		cout << "\nFin\n";
-		return;
-	}
 	
+		}
 
 	if (nbPlacesTotal < nbPersonnesTotal)
 	{
@@ -347,7 +315,7 @@ Restaurant::Restaurant(double _largeur, double _longueur, int _etages, int*	_pla
 
 
 
-// Utilisation des flèches directionnelles
+// Utilisation des flèches directionnelles, dont l'identifiant est associé à un entier
 
 #define KEY_UP 72
 
@@ -355,7 +323,7 @@ Restaurant::Restaurant(double _largeur, double _longueur, int _etages, int*	_pla
 
 #define ESC 27
 
-#include <conio.h>
+#include <conio.h> // permet d'utiliser la fonction _getch()
 
 
 	void Restaurant::Afficher()
@@ -375,19 +343,24 @@ Restaurant::Restaurant(double _largeur, double _longueur, int _etages, int*	_pla
 
 		int c = 0;
 		int i = 0;
+
+		// On met le menu d'affichage dans une boucle afin de pouvoir monter et descendre les étages autant de fois que l'on le souhaite.
 		do
 		{
-			//system("cls"); //  On masque pour l'instant pour faire des tests
 			cout << "\n//		Etage		"<< i+1 <<  "/"<< nbEtages <<"		//\n";
 			if (i == 0) cout << " \n\n>>			 Etage Initial!\n\n";
 			else if (i >= nbEtages - 1) cout << "\n\n>>			 Etage Final!\n\n";
 			listeEtages[i].Affiche();
-			switch ((c = _getch()))
+
+			// On utilise _getch() pour obtenir la touche frappée
+			switch ((c = _getch()))		
 			{
 			case KEY_UP:
 			{
+				// Si nous ne sommes pas déjà au dernier étage
 				if (i < nbEtages -1)
 				{
+					// On monte d'un étage
 					i++;
 				}
 				break;
@@ -395,12 +368,15 @@ Restaurant::Restaurant(double _largeur, double _longueur, int _etages, int*	_pla
 
 			case KEY_DOWN:
 			{
+				// Si nous ne sommes pas à l'état initial
 				if ( i > 0 )
 				{
+					// On descend d'un étage
 					i--;
 				}
 				break;
 			}
+			// Si la touche ne correspond pas on ne fait rien
 			default:
 			{
 				break;
